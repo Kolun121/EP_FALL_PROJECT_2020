@@ -1,0 +1,18 @@
+<!--<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::main}, 'registration', 'Регистрация')}">-->
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<main class="container">
+    <form class="form-signin col-6" method="post" th:action="@{/registration}">
+        <h2 class="form-signin-heading">Регистрация</h2>
+        <p>
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+        </p>
+        <p>
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </p>
+        <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Зарегестрироваться</button>
+    </form>
+</main>
+</html>
