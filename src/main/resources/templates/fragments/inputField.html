@@ -1,0 +1,12 @@
+<th:block th:fragment="inputField (label, name, type)">
+    <div class="form-group">
+        <label class="control-label" th:text="${label}" th:for="${name}">Label</label>
+        <th:block th:switch="${type}">
+            <input th:case="'text'" th:class="${'form-control ' + name}" type="text" th:field="*{__${name}__}" />
+            <input th:case="'number'" th:class="${'form-control ' + name}" type="number" th:field="*{__${name}__}" />
+            <input th:case="'date'" class="form-control" type="date" th:field="*{__${name}__}"/>
+            <textarea th:case="'textarea'" th:class="${'form-control ' + name}" th:field="*{__${name}__}" />
+        </th:block>
+    </div>
+
+</th:block>

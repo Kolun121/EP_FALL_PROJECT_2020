@@ -1,18 +1,37 @@
-<!--<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::main}, 'login', 'Вход')}">-->
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::main}, 'login', 'Вход')}">
+<!--<html lang="ru" xmlns:th="http://www.thymeleaf.org">-->
 <main class="container">
-    <form class="form-signin col-6" method="post" th:action="@{/login}">
-        <h2 class="form-signin-heading">Вход</h2>
-        <p>
-            <label for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
-        </p>
-        <p>
-            <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        </p>
-        <button class="btn btn-lg btn-outline-primary" type="submit">Войти</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mt-5">
+                <form method="post" th:object="${user}">
+                    <h2 class="form-signin-heading">Вход</h2>
+                    <div class="form-group">
+                        <label for="username">Имя пользователя</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="username" autocomplete="off"
+                                   th:field="*{username}"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <div class="input-group" id="show_hide_password">
+                            <input type="password" class="form-control" id="password" autocomplete="off"
+                                   th:field="*{password}"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-lg btn-outline-primary" type="submit">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
     
 </html>

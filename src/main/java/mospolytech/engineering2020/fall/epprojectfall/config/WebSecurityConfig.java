@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
 //                    .antMatchers("/**").permitAll()
+                    .antMatchers("/webjars/**").permitAll()
+                    .antMatchers("/resources/**").permitAll()
+                    .antMatchers("/registration").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin().loginPage("/login").permitAll()
@@ -60,4 +65,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
+    
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    
+    
 }

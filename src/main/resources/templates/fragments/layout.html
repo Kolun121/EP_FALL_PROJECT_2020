@@ -1,0 +1,35 @@
+<!doctype html>
+<html th:fragment="layout (template, page, pageTitle)">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link th:href="@{/resources/css/footer.css}" rel="stylesheet">
+        <link th:href="@{/resources/css/main.css}" rel="stylesheet">
+        <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/5.11.2/css/all.css}" th:rel="stylesheet"/>
+
+        <th:block th:insert="~{fragments/css :: css}"></th:block>
+        
+        <title th:text="${pageTitle}"></title>
+    </head>
+
+<body>        
+    <header th:replace="~{fragments/header :: header(${page})}" />
+    
+    <main th:replace="${template}" />   
+
+    <footer th:replace="~{fragments/footer :: footer}" />
+
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+    
+        
+    <th:block th:insert="~{fragments/js :: js}"></th:block>
+    
+</body>
+    
+</html>

@@ -1,0 +1,8 @@
+<th:block th:fragment="css"><th:block th:switch="${page}">
+    <th:block th:case="profileSettings">
+        <link th:href="@{/webjars/croppie/2.6.3/croppie.css}" rel="stylesheet">
+    </th:block>
+    <th:block th:case="profileNewAd">
+        <link th:href="@{/webjars/croppie/2.6.3/croppie.css}" rel="stylesheet">
+    </th:block>
+</th:block></th:block>
