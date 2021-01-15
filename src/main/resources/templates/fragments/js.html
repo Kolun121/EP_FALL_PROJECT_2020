@@ -1,7 +1,8 @@
 <th:block th:fragment="js">
     <th:block th:switch="${page}">
-        <th:block th:case="profileSettings">
-         
+        <th:block th:case="employeeIndexUser">
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+            <script th:src="@{/resources/js/datatables.js}"></script>
         </th:block>
         <th:block th:case="profileNewAd">
 

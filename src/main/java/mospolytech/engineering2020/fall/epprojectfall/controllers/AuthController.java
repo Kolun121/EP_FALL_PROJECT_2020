@@ -9,6 +9,7 @@ import mospolytech.engineering2020.fall.epprojectfall.domain.User;
 import mospolytech.engineering2020.fall.epprojectfall.domain.enumeration.Role;
 import mospolytech.engineering2020.fall.epprojectfall.service.SecurityService;
 import mospolytech.engineering2020.fall.epprojectfall.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,10 @@ public class AuthController {
     }
     
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Authentication authentication) {
+        if(authentication != null){
+            return "redirect:/";   
+        }
         return "auth/registration";
     }
 
@@ -45,11 +49,7 @@ public class AuthController {
         }
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.USER);
-        userService.save(user);
-
-//        securityService.autoLogin(user.getUsername(), user.getPassword());
-
+   
         user.setRole(Role.USER);
         userService.save(user);
         securityService.autoLogin(user.getUsername(), user.getPassword());
@@ -58,7 +58,10 @@ public class AuthController {
     }
     
     @GetMapping("/login")
-    public String getLoginPage(Model model) {
+    public String getLoginPage(Model model, Authentication authentication) {
+        if(authentication != null){
+            return "redirect:/";   
+        }
         model.addAttribute("user", new User());
         return "auth/login";
     }
