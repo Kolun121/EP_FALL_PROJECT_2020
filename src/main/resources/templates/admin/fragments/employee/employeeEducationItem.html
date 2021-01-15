@@ -1,0 +1,44 @@
+<th:block th:fragment="employeeEducationItem (educationItems)">
+    <div th:each="educationItem : ${educationItems}" th:class="${'d-flex flex-column align-items-center mb-4 shadow col-md-10 education-item-' + educationItem.id}">
+        <div class="form-group row col-10">
+            <div class="col-md-12 mt-4">
+                
+                <label class="control-label" th:for="${educationItem.specialty}">Специальность</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|education-specialty-${educationItem.id}|" 
+                           th:value="${educationItem.specialty}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${educationItem.qualification}">Квалификация</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|education-qualification-${educationItem.id}|" 
+                           th:value="${educationItem.qualification}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${educationItem.graduationDate}">Дата выпуска</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="date" 
+                           th:id="|education-graduation_date-${educationItem.id}|" 
+                           th:value="${educationItem.graduationDate}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>   
+        
+        <div class="col-sm-offset-2 col-sm-6 d-flex justify-content-around mb-4">
+            <a th:onclick="|education.saveEducationItem(event, ${educationItem.id})|"  class="btn btn-primary" th:text="'Сохранить'"></a>
+            <a th:onclick="|education.deleteEducationItem(event, ${educationItem.id})|" class="btn btn-danger" th:text="'Удалить'"></a>
+        </div>
+    </div>
+</th:block>

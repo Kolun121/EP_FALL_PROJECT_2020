@@ -6,6 +6,7 @@ import mospolytech.engineering2020.fall.epprojectfall.service.EmployeeService;
 import mospolytech.engineering2020.fall.epprojectfall.service.PassportService;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Passport;
+import mospolytech.engineering2020.fall.epprojectfall.service.EducationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,11 @@ public class EmployeesController {
     private final PassportService passportService;
     
     
-    public EmployeesController(EmployeeService employeeService, PassportService passportService) {
+    public EmployeesController(
+            EmployeeService employeeService, 
+            PassportService passportService
+            ) 
+    {
         this.employeeService = employeeService;
         this.passportService = passportService;
     }

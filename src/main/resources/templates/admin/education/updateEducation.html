@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{admin/fragments/layout :: layout (~{::main},'educationUpdateAdmin', 'Изменение информации об образовании сотрудника')}">
+    
+<main class="container mb-5" >
+    <div class="container mt-5">
+           
+        <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${employeeId})}" />
+        
+        
+                <div class="form-group except d-flex flex-column justify-content-center align-items-center">
+                    <div id="listEducationItems" class="d-flex flex-column align-items-center col-md-9 mb-2">
+                        <h4 class="my-4 text-center" th:text="'Образование сотрудника'"></h4>
+                        <th:block th:replace="~{admin/fragments/employee/employeeEducationItem :: employeeEducationItem (${educations})}"></th:block>
+                     </div>
+                    <button class="btn btn-outline-primary col-3" th:onclick="education.addEducationItem(event)">
+                     Добавить новый пункт
+                    </button>
+                </div>
+    </div>
+</main>
+
+</html>
