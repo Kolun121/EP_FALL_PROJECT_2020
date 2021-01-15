@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{admin/fragments/layout :: layout (~{::main},'passportUpdateAdmin', 'Изменение информации о паспорте')}">
+    
+<main class="container mb-5" >
+    <div class="container mt-5">
+           
+        <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${passport.employee.id})}" />
+        
+        <form method="post" th:object="${passport}">
+            
+            
+            <input th:replace="~{admin/fragments/inputField :: inputField ('ID паспорта', 'passportID', 'text')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Кем выдан паспорт', 'issuedBy', 'text')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Дата выдачи паспорта', 'issueDate', 'date')}" />
+            <button class="btn btn-primary" type="submit" th:text="'Обновить'"></button>
+        </form>
+
+    </div>
+</main>
+
+</html>

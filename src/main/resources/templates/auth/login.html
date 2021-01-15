@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mt-5">
-                <form method="post" th:object="${user}">
+                <form method="post" th:action="@{/login}" th:object="${user}">
                     <h2 class="form-signin-heading">Вход</h2>
                     <div class="form-group">
                         <label for="username">Имя пользователя</label>

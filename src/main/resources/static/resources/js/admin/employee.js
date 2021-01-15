@@ -1,5 +1,8 @@
 var employee = {
+   
     createEmployee: function(evnt) {
+        var token = $("input[name='_csrf']").val();
+        console.log(token);
         evnt.preventDefault();
         $.ajax({
             url: document.URL + '/new',

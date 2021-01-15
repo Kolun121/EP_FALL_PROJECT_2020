@@ -3,7 +3,9 @@ package mospolytech.engineering2020.fall.epprojectfall.controllers.admin;
 import javax.validation.Valid;
 import mospolytech.engineering2020.fall.epprojectfall.controllers.*;
 import mospolytech.engineering2020.fall.epprojectfall.service.EmployeeService;
+import mospolytech.engineering2020.fall.epprojectfall.service.PassportService;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
+import mospolytech.engineering2020.fall.epprojectfall.domain.Passport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/employees")
 public class EmployeesController {
     private final EmployeeService employeeService;
+    private final PassportService passportService;
     
     
-    public EmployeesController(EmployeeService employeeService) {
+    public EmployeesController(EmployeeService employeeService, PassportService passportService) {
         this.employeeService = employeeService;
+        this.passportService = passportService;
     }
     
     
@@ -50,7 +54,11 @@ public class EmployeesController {
     
     @PostMapping("/new")
     public @ResponseBody String newCourse(Model model){
+        Passport newPassport = new Passport();
         Employee newEmployee = new Employee();
+        
+        newPassport.setEmployee(newEmployee);
+        newEmployee.setPassport(newPassport);
         
         Employee savedEmployee = employeeService.save(newEmployee);
 

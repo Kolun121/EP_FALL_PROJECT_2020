@@ -4,6 +4,8 @@
     
 <main class="container mb-5" >
     <div class="container mt-5">
+           
+        <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${employee.id})}" />
         
         <form method="post" th:object="${employee}">
             <i class="fa fa-glass"></i>
