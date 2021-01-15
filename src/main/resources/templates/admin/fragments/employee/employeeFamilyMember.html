@@ -1,0 +1,64 @@
+<th:block th:fragment="employeeFamilyMember (familyMembers)">
+    <div th:each="familyMember : ${familyMembers}" th:class="${'d-flex flex-column align-items-center mb-4 shadow col-md-10 family-item-' + familyMember.id}">
+        <div class="form-group row col-10">
+            <div class="col-md-12 mt-4">
+                
+                <label class="control-label" th:for="${familyMember.firstName}">Имя</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|family-first_name-${familyMember.id}|" 
+                           th:value="${familyMember.firstName}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${familyMember.lastName}">Фамилия</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|family-last_name-${familyMember.id}|" 
+                           th:value="${familyMember.lastName}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${familyMember.patronymic}">Отчество</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|family-patronymic-${familyMember.id}|" 
+                           th:value="${familyMember.patronymic}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${familyMember.relation}">Родство</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|family-relation-${familyMember.id}|" 
+                           th:value="${familyMember.relation}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${familyMember.birthDate}">Дата рождения</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="date" 
+                           th:id="|family-birth_date-${familyMember.id}|" 
+                           th:value="${familyMember.birthDate}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>   
+        
+        <div class="col-sm-offset-2 col-sm-6 d-flex justify-content-around mb-4">
+            <a th:onclick="|family.saveFamilyMember(event, ${familyMember.id})|"  class="btn btn-primary" th:text="'Сохранить'"></a>
+            <a th:onclick="|family.deleteFamilyMember(event, ${familyMember.id})|" class="btn btn-danger" th:text="'Удалить'"></a>
+        </div>
+    </div>
+</th:block>

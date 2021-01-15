@@ -1,0 +1,49 @@
+<th:block th:fragment="employeeVacationItem (vacationItems)">
+    <div th:each="vacationItem : ${vacationItems}" th:class="${'d-flex flex-column align-items-center mb-4 shadow col-md-10 vacation-item-' + vacationItem.id}">
+        <div class="form-group row col-10">
+            <div class="col-md-12 mt-4">
+                
+                <div class="form-group">
+                    <label class="control-label" th:for="${vacationItem.vacationType}">Тип отпуска</label>
+                    <div>
+                        
+                        <select class="col-8" 
+                                th:id="|vacation-vacation_type-${vacationItem.id}|" 
+                                th:value="${vacationItem.vacationType}">
+                            <option 
+                                th:each="item : ${T(mospolytech.engineering2020.fall.epprojectfall.domain.enumeration.VacationType).values()}" th:value="${item}"
+                                th:selected="${#strings.equals(item, vacationItem.vacationType)}"
+                            th:text="${item.getValue()}"></option>
+                        </select>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${vacationItem.startDate}">Дата начала отпуска</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="date" 
+                           th:id="|vacation-start_date-${vacationItem.id}|" 
+                           th:value="${vacationItem.startDate}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${vacationItem.endDate}">Дата конца отпуска</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="date" 
+                           th:id="|vacation-end_date-${vacationItem.id}|" 
+                           th:value="${vacationItem.endDate}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>   
+        
+        <div class="col-sm-offset-2 col-sm-6 d-flex justify-content-around mb-4">
+            <a th:onclick="|vacation.saveVacationItem(event, ${vacationItem.id})|"  class="btn btn-primary" th:text="'Сохранить'"></a>
+            <a th:onclick="|vacation.deleteVacationItem(event, ${vacationItem.id})|" class="btn btn-danger" th:text="'Удалить'"></a>
+        </div>
+    </div>
+</th:block>

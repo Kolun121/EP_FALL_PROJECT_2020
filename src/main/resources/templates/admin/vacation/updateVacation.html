@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{admin/fragments/layout :: layout (~{::main},'vacationUpdateAdmin', 'Изменение информации об отпусках сотрудника')}">
+    
+<main class="container mb-5" >
+    <div class="container mt-5">
+           
+        <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${employeeId})}" />
+        
+        
+                <div class="form-group except d-flex flex-column justify-content-center align-items-center">
+                    <div id="listVacationItems" class="d-flex flex-column align-items-center col-md-9 mb-2">
+                        <h4 class="my-4 text-center" th:text="'Отпуска сотрудника'"></h4>
+                        <th:block th:replace="~{admin/fragments/employee/employeeVacationItem :: employeeVacationItem (${vacations})}"></th:block>
+                     </div>
+                    <button class="btn btn-outline-primary col-3" th:onclick="vacation.addVacationItem(event)">
+                     Добавить новый отпуск
+                    </button>
+                </div>
+    </div>
+</main>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{admin/fragments/layout :: layout (~{::main},'familyUpdateAdmin', 'Изменение информации об членах семьи сотрудника')}">
+    
+<main class="container mb-5" >
+    <div class="container mt-5">
+           
+        <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${employeeId})}" />
+        
+        
+                <div class="form-group except d-flex flex-column justify-content-center align-items-center">
+                    <div id="listFamilyMembers" class="d-flex flex-column align-items-center col-md-9 mb-2">
+                        <h4 class="my-4 text-center" th:text="'Члены семьи сотрудника'"></h4>
+                        <th:block th:replace="~{admin/fragments/employee/employeeFamilyMember :: employeeFamilyMember (${familyMembers})}"></th:block>
+                     </div>
+                    <button class="btn btn-outline-primary col-3" th:onclick="family.addFamilyMember(event)">
+                     Добавить нового члена семьи
+                    </button>
+                </div>
+    </div>
+</main>
+
+</html>

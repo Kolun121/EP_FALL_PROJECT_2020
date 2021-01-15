@@ -40,7 +40,7 @@ public class EducationController {
     }
     
     @PostMapping("{id}/education/new")
-    public ModelAndView createEducationalStageItem(@PathVariable Long id) {
+    public ModelAndView createEducationalItem(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("admin/fragments/employee/employeeEducationItem :: employeeEducationItem ");
         Education educationItem = new Education();
         educationItem.setEmployee(employeeService.findById(id));
@@ -61,7 +61,10 @@ public class EducationController {
         educationItem.setId(educationId);
         educationItem.setSpecialty(specialty);
         educationItem.setQualification(qualification);
-        educationItem.setGraduationDate(Date.valueOf(graduationDate));
+        
+        if(!graduationDate.isEmpty()){
+            educationItem.setGraduationDate(Date.valueOf(graduationDate));
+        }
 
         educationItem.setEmployee(employeeService.findById(employeeId));
         educationService.save(educationItem);

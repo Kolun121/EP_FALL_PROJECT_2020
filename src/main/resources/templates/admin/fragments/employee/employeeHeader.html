@@ -1,16 +1,12 @@
 <th:block th:fragment="employeeHeader(page, employeeId)">
     <div class="row">
-            
-            
-            
+  
             <!--Шаблон для employee nav item-->
             <div th:remove="all">
                 <li th:fragment="employeeNavItem (path,active,title,page)" th:class="'nav-item'">
                   <a th:class="'nav-link ' + ${active==page ? 'active' : ''}" th:href="@{${path}}" th:text="${title}"></a>
                 </li>
             </div>
-            
-            
             
             <div class="col">
                 <ul class="nav nav-tabs mt-5" id="myTabs">
@@ -19,6 +15,12 @@
                     <li th:replace="::employeeNavItem (@{'/admin/employees/' + ${employeeId}} + '/passport','passportUpdateAdmin','Паспорт', ${page})"/>
                     
                     <li th:replace="::employeeNavItem (@{'/admin/employees/' + ${employeeId}} + '/education','educationUpdateAdmin','Образование', ${page})"/>
+                    
+                    <li th:replace="::employeeNavItem (@{'/admin/employees/' + ${employeeId}} + '/vacation','vacationUpdateAdmin','Отпуска', ${page})"/>
+                    
+                    <li th:replace="::employeeNavItem (@{'/admin/employees/' + ${employeeId}} + '/family','familyUpdateAdmin','Семья', ${page})"/>
+   
+                    <li th:replace="::employeeNavItem (@{'/admin/employees/' + ${employeeId}} + '/jobhistory','jobHistoryUpdateAdmin','Трудовой опыт', ${page})"/>
    
                 </ul>
 

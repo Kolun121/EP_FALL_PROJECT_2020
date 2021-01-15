@@ -1,0 +1,44 @@
+<th:block th:fragment="employeeJobHistoryItem (jobHistoryItems)">
+    <div th:each="jobHistoryItem : ${jobHistoryItems}" th:class="${'d-flex flex-column align-items-center mb-4 shadow col-md-10 job_history-item-' + jobHistoryItem.id}">
+        <div class="form-group row col-10">
+            <div class="col-md-12 mt-4">
+                
+                <label class="control-label" th:for="${jobHistoryItem.jobTitle}">Название предыдущей должности</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="text" 
+                           th:id="|job_history-job_title-${jobHistoryItem.id}|" 
+                           th:value="${jobHistoryItem.jobTitle}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${jobHistoryItem.startDate}">Дата начала работы</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="date" 
+                           th:id="|job_history-start_date-${jobHistoryItem.id}|" 
+                           th:value="${jobHistoryItem.startDate}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                
+                <label class="control-label" th:for="${jobHistoryItem.endDate}">Дата конца работы</label>
+                <div class="input-group">
+                    <input th:class="${'form-control'}" type="date" 
+                           th:id="|job_history-end_date-${jobHistoryItem.id}|" 
+                           th:value="${jobHistoryItem.endDate}" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>   
+        
+        <div class="col-sm-offset-2 col-sm-6 d-flex justify-content-around mb-4">
+            <a th:onclick="|job_history.saveJobHistoryItem(event, ${jobHistoryItem.id})|"  class="btn btn-primary" th:text="'Сохранить'"></a>
+            <a th:onclick="|job_history.deleteJobHistoryItem(event, ${jobHistoryItem.id})|" class="btn btn-danger" th:text="'Удалить'"></a>
+        </div>
+    </div>
+</th:block>
