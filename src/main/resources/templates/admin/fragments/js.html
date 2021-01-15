@@ -1,7 +1,7 @@
 <th:block th:fragment="js">
     <th:block th:switch="${page}">
         <th:block th:case="employeeIndexAdmin">
-            
+            <script th:src="@{/resources/js/admin/employee.js}"></script>
         </th:block>
         <th:block th:case="profileNewAd">
 

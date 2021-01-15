@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{admin/fragments/layout :: layout (~{::main},'employeeUpdateAdmin', 'Изменение информации о сотруднике')}">
+    
+<main class="container mb-5" >
+    <div class="container mt-5">
+        
+        <form method="post" th:object="${employee}">
+            <i class="fa fa-glass"></i>
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Имя сотрудника', 'firstName', 'text')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Фамилия сотрудника', 'lastName', 'text')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Отчество сотрудника', 'patronymic', 'text')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Телефон сотрудника', 'phoneNumber', 'phone')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Email', 'email', 'email')}" />
+            <input th:replace="~{admin/fragments/inputField :: inputField ('Дата найма сотрудника', 'hireDate', 'date')}" />
+            <button class="btn btn-primary" type="submit" th:text="'Обновить'"></button>
+        </form>
+
+    </div>
+</main>
+
+</html>

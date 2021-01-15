@@ -22,7 +22,7 @@ var employee = {
 
             },
             success: function(){
-                window.location = '/admin';           
+                window.location = '/admin/employees';           
             },
             error: function (e) {
                 console.log(e);

@@ -16,8 +16,8 @@
                     <tbody>
                     <tr th:each="employee : ${employees.page}">
                         <td th:text="${employee.id}">ID</td>
-                        <td>[[${employee.price}]] [[${employee.price}]] [[${employee.price}]]</td>
-                        <td><a th:text="'Перейти'" th:href="@{${employee.id}}"></a></td>
+                        <td>[[${employee.lastName}]] [[${employee.firstName}]] [[${employee.patronymic}]]</td>
+                        <td><a th:text="'Перейти'" th:href="@{'/admin/employees/' + ${employee.id}}"></a></td>
                     </tr>
                     </tbody>
                 </table>
