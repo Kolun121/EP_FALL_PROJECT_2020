@@ -24,13 +24,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "jobs")
-public class Job implements Serializable{
+@Table(name = "staffing_table")
+public class StaffingTable implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String jobTitle;
     private Long salary;
     private Integer employeesNumber = 0;
     
@@ -39,31 +38,31 @@ public class Job implements Serializable{
     @JoinColumn(name = "department_id")
     private Department department;
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "job")
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private Position position;
+    
+    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "staffingTable")
     private List<Employee> employees = new ArrayList<>();
     
-    @ManyToMany
-    @JoinTable(name = "job_task",
-        joinColumns = @JoinColumn(name = "job_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id"))
-    private Set<Task> tasks = new HashSet<>();
+    
     
     @Override
     public boolean equals(Object o) {
 
         if (o == this) return true;
-        if (!(o instanceof Job)) {
+        if (!(o instanceof StaffingTable)) {
             return false;
         }
         
-        Job job = (Job) o;
+        StaffingTable staffingTable = (StaffingTable) o;
         
-        return Objects.equals(id, job.id) &&
-                Objects.equals(jobTitle, job.jobTitle);
+        return Objects.equals(id, staffingTable.id) &&
+                Objects.equals(salary, staffingTable.salary);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(jobTitle, id);
+        return Objects.hash(salary, id);
     }
 }

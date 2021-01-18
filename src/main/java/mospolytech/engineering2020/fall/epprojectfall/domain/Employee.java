@@ -3,16 +3,12 @@ package mospolytech.engineering2020.fall.epprojectfall.domain;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
-import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,8 +40,8 @@ public class Employee implements Serializable{
     private Passport passport;
    
     @ManyToOne
-    @JoinColumn(name = "job_id")
-    private Job job;
+    @JoinColumn(name = "staffing_table_id")
+    private StaffingTable staffingTable;
     
     @OneToMany(cascade = CascadeType.MERGE , mappedBy = "employee")
     private List<Education> educations = new ArrayList<>();

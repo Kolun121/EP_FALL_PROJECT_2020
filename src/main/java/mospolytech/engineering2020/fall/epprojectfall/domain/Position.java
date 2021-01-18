@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -19,33 +17,33 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "departments")
-public class Department implements Serializable{
+@Table(name = "positions")
+public class Position implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String departmentName;
+    private String positionName;
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "department")
-    private List<StaffingTable> jobs = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "position")
+    private List<StaffingTable> staffingTables = new ArrayList<>();
     
     @Override
     public boolean equals(Object o) {
 
         if (o == this) return true;
-        if (!(o instanceof Department)) {
+        if (!(o instanceof Position)) {
             return false;
         }
         
-        Department department = (Department) o;
+        Position position = (Position) o;
         
-        return Objects.equals(id, department.id) &&
-                Objects.equals(departmentName, department.departmentName);
+        return Objects.equals(id, position.id) &&
+                Objects.equals(positionName, position.positionName);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(departmentName, id);
+        return Objects.hash(positionName, id);
     }
 }
