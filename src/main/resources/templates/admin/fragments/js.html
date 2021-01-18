@@ -20,7 +20,13 @@
         </th:block>
         
         <th:block th:case="positionListAdmin">
-            <script th:src="@{/resources/js/admin/position.js}"></script>
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js">
+                </script>
+            <script th:src="@{/resources/js/admin/positionDatatables.js}"></script>
+        </th:block>
+        <th:block th:case="departmentListAdmin">
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+            <script th:src="@{/resources/js/admin/departmentDatatables.js}"></script>
         </th:block>
     </th:block>
 </th:block>

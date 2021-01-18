@@ -1,17 +1,18 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain.paging;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@Setter
-//@Getter
-//@NoArgsConstructor
+@Setter
+@Getter
+@NoArgsConstructor
 public class PagingRequest {
-//    private int start;
-//    private int length;
-//    private int draw;
-//    private List<Order> order;
-//    private List<Column> columns;
-//    private Search search;  
+    private int start;
+    private int length;
+    private int draw;
+    private List<Order> order;
+    private List<Column> columns;
+    private Search search;  
 }

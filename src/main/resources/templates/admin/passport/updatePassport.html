@@ -7,9 +7,8 @@
            
         <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${passport.employee.id})}" />
         
-        <form method="post" th:object="${passport}">
-            
-            
+        <form method="post" th:action="@{''}" th:object="${passport}">
+            <input type="hidden" th:field="${passport.employee.id}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('ID паспорта', 'passportID', 'text')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Кем выдан паспорт', 'issuedBy', 'text')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Дата выдачи паспорта', 'issueDate', 'date')}" />

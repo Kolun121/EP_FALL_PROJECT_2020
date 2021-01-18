@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("adminEmployeesController")
 @RequestMapping("/admin/employees")
-public class EmployeesController {
+public class EmployeeController {
     private final EmployeeService employeeService;
     private final PassportService passportService;
     
     
-    public EmployeesController(
+    public EmployeeController(
             EmployeeService employeeService, 
             PassportService passportService
             ) 

@@ -28,7 +28,7 @@ public class Department implements Serializable{
     private String departmentName;
     
     @OneToMany(cascade = CascadeType.MERGE , mappedBy = "department")
-    private List<StaffingTable> jobs = new ArrayList<>();
+    private List<StaffingTable> staffingTable = new ArrayList<>();
     
     @Override
     public boolean equals(Object o) {

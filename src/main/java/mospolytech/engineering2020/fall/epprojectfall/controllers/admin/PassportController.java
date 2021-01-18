@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("adminPassportsController")
 @RequestMapping("/admin/employees")
-public class PassportsController {
+public class PassportController {
     private final EmployeeService employeeService;
     private final PassportService passportService;
     
     
-    public PassportsController(EmployeeService employeeService, PassportService passportService) {
+    public PassportController(EmployeeService employeeService, PassportService passportService) {
         this.employeeService = employeeService;
         this.passportService = passportService;
     }
@@ -42,7 +42,6 @@ public class PassportsController {
     public String savePassport(@PathVariable String id, @Valid Passport passport, BindingResult result) {
         Passport currentPassport = passportService.findByEmployeeId(Long.parseLong(id));
         passport.setId(currentPassport.getId());
-        
         passportService.save(passport);
         return "redirect:/admin/employees/" + id + "/passport";
     }
