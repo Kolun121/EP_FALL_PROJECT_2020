@@ -14,7 +14,7 @@ var vacation = {
             },
             success: function(result){
                 if (result) {
-                    _this.listFamilyMembers.append(result);
+                    _this.listVacationItems.append(result);
                 }
             }
         });      

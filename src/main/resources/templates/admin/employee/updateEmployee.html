@@ -7,14 +7,26 @@
            
         <div th:replace="~{admin/fragments/employee/employeeHeader :: employeeHeader(${page}, ${employee.id})}" />
         
-        <form method="post" th:object="${employee}">
-            <i class="fa fa-glass"></i>
+        <form method="post" th:action="@{''}" class="pt-2 pb-5 mb-5" th:object="${employee}">
+            <input type="hidden" th:field="${employee.passport.id}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Имя сотрудника', 'firstName', 'text')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Фамилия сотрудника', 'lastName', 'text')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Отчество сотрудника', 'patronymic', 'text')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Телефон сотрудника', 'phoneNumber', 'phone')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Email', 'email', 'email')}" />
             <input th:replace="~{admin/fragments/inputField :: inputField ('Дата найма сотрудника', 'hireDate', 'date')}" />
+            <div class="form-group row mb-5">
+                <div class="col-md-6">
+                <label for="employeeStaffingTable">Выбор штатного расписания</label>
+                <select id="employeeStaffingTable" class="form-control select2-single p-3" th:field="*{staffingTable}">
+                    <option th:if="*{staffingTable == null}" value="">Поиск расписания</option>
+                    <option th:if="*{staffingTable != null}" th:value="*{staffingTable.id}">
+                        Должность: [[*{staffingTable.position?.positionName}]] - Отдел: [[*{staffingTable.department?.departmentName}]]
+                    </option>
+                </select>
+                </div>
+            </div>
+            
             <button class="btn btn-primary" type="submit" th:text="'Обновить'"></button>
         </form>
 

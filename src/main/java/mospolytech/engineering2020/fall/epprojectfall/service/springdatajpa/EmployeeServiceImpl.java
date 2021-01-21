@@ -1,6 +1,7 @@
 package mospolytech.engineering2020.fall.epprojectfall.service.springdatajpa;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.findAll().forEach(employees::add);
         return employees;
     }
-
+    
+    @Override
+    public List<Employee> findAllByStaffingTableId(Long staffingTableId) {
+        return employeeRepository.findAllByStaffingTableId(staffingTableId);
+    }
+    
     @Override
     public Employee findById(Long id) {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
@@ -63,5 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(id);
     }
 
+    @Override
+    public void saveAll(List<Employee> employees) {
+        employeeRepository.saveAll(employees);
+    }
 
 }

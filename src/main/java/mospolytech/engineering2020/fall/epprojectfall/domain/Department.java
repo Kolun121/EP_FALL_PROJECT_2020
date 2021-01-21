@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Department implements Serializable{
 
     private String departmentName;
     
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE , mappedBy = "department")
     private List<StaffingTable> staffingTable = new ArrayList<>();
     

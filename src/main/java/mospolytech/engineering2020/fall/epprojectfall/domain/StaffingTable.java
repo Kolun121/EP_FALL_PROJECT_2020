@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -42,7 +43,8 @@ public class StaffingTable implements Serializable{
     @JoinColumn(name = "position_id")
     private Position position;
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "staffingTable")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.PERSIST , mappedBy = "staffingTable")
     private List<Employee> employees = new ArrayList<>();
     
     

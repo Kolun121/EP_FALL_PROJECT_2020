@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive" sec:authorize="isAuthenticated()">
                 <ul class="navbar-nav ml-auto">
                     <li th:replace="::menuItem ('/admin/employees','employeeIndexAdmin','Сотрудники', ${page})"/>
-                    <li th:replace="::menuItem ('/','ads','Объявления', ${page})"/>
+                    <li th:replace="::menuItem ('/admin/staffing','indexStaffingTableAdmin','Штатное расписание', ${page})"/>
                     <li th:replace="::menuItem ('/admin/positions','positionListAdmin','Должности', ${page})"/>
                     <li th:replace="::menuItem ('/admin/departments','departmentListAdmin','Отделы', ${page})"/>
                 </ul>

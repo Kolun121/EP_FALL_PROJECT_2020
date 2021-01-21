@@ -2,6 +2,11 @@
     <th:block th:case="employeeIndexAdmin">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
     </th:block>
+    <th:block th:case="employeeUpdateAdmin">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/select2/4.0.13/css/select2.min.css}"/>
+    </th:block>
     <th:block th:case="departmentListAdmin">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
@@ -11,6 +16,16 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.uikit.min.css">
+    </th:block>
+    <th:block th:case="indexStaffingTableAdmin">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.uikit.min.css">
+    </th:block>
+    <th:block th:case="updateStaffingTableAdmin">
+        
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap4-duallistbox/4.0.2/dist/bootstrap-duallistbox.min.css}"/>
+       
     </th:block>
  
 </th:block></th:block>

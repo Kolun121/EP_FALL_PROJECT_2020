@@ -42,6 +42,8 @@ public class PassportController {
     public String savePassport(@PathVariable String id, @Valid Passport passport, BindingResult result) {
         Passport currentPassport = passportService.findByEmployeeId(Long.parseLong(id));
         passport.setId(currentPassport.getId());
+        passport.getEmployee().setPassport(passport);
+
         passportService.save(passport);
         return "redirect:/admin/employees/" + id + "/passport";
     }

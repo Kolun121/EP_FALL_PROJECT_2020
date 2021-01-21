@@ -7,13 +7,14 @@ var token = $("input[name='_csrf']").val();
 var t = $('#data_table').DataTable({
         columnDefs: [{
             orderable: false,
-            targets: [1]
+            targets: [5]
         },
         {
-            "targets": 1,
-            "data": "positionName",
+            "targets": 5,
+            "data": "id",
             "render": function ( data, type, row, meta ) {
-              return '<input type="text" style="width:100%" value="'+data+'"/>';
+                console.log(data);
+                return '<a text="Перейти" href="/admin/staffing/' + data + '">Перейти</a>';
             }
         }],
        "processing": true,
@@ -23,8 +24,8 @@ var t = $('#data_table').DataTable({
             "info":           "Отображается от _START_ до _END_ из _TOTAL_ записей",
             "infoPostFix":    "",
             "thousands":      ",",
-            "infoEmpty":      "Найдено 0 записей",
             "lengthMenu":     "Show _MENU_ entries",
+            "infoEmpty":      "Найдено 0 записей",
             "loadingRecords": "Загрузка...",
             "processing":     "Загрузка...",
             "search":         "Поиск:",
@@ -46,13 +47,28 @@ var t = $('#data_table').DataTable({
            "dataType": "json",
            "contentType": "application/json",
            "data": function (d) {
+               console.log(d);
                return JSON.stringify(d);
 
            }
        },
        "columns": [
-           {"data": "id", "width": "50%"},
-           {"data": "positionName", "width": "50%"}
+           {"data": "id", "width": "5%"},
+           {"data": "position.positionName", 
+               "width": "40%",
+               "defaultContent": "<i>Не указана</i>"
+               
+           },
+           {"data": "department.departmentName", 
+               "width": "40%",
+               "defaultContent": "<i>Не указан</i>"
+           },
+           {"data": "salary", 
+               "width": "5%",
+               "defaultContent": "<i>Не указана</i>"
+           },
+           {"data": "employeesNumber", "width": "5%"},
+           {"data": "id", "width": "5%"}
        ]
 });
 
@@ -61,16 +77,14 @@ $('#data_table tbody').on( 'click', 'tr', function () {
     $(this).toggleClass('selected');
     
     if(t.rows('.selected')[0].length !== 0){
-        $('#submitChanges').prop('disabled', false);
-        $('#deletePositions').prop('disabled', false);
+        $('#deleteStaffingTables').prop('disabled', false);
     } else{
-        $('#submitChanges').prop('disabled', true);
-        $('#deletePositions').prop('disabled', true);
+        $('#deleteStaffingTables').prop('disabled', true);
     }
 
 } );
 
-$('#createPosition').on( 'click', function () {
+$('#createStaffingTable').on( 'click', function () {
     $.ajax({
         url: document.URL + '/new',
         type: "POST",
@@ -79,28 +93,14 @@ $('#createPosition').on( 'click', function () {
         }
     });  
 });  
-$('#submitChanges').on( 'click', function () {
-    var dataArr = [];
-    t.rows('.selected').every( function ( rowIdx, tableLoop, rowLoop ) {
-        var d = this.data();
-        d["positionName"] = t.cell(rowIdx,1).nodes().to$().find('input').val();
-        dataArr.push(d);
-    } );
 
-    $.ajax({
-        url: document.URL + '/update',
-        type: "POST",
-        data: JSON.stringify(dataArr),
-        contentType : 'application/json; charset=utf-8',
-    });    
-} );
-$('#deletePositions').on( 'click', function () {
+$('#deleteStaffingTables').on( 'click', function () {
     var dataArr = [];
     t.rows('.selected').every( function ( rowIdx, tableLoop, rowLoop ) {
         var d = this.data();
         dataArr.push(d);
     } );
-
+    console.log(dataArr);
     $.ajax({
         url: document.URL + '/delete',
         type: "DELETE",

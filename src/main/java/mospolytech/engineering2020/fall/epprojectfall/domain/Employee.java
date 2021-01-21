@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -28,31 +31,37 @@ public class Employee implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotBlank(message = "Имя должно быть заполнено")
+    private String firstName = "Не указано";
+    @NotBlank(message = "Фамилия должна быть заполнена")
+    private String lastName = "Не указано";
+    @NotBlank(message = "Отчество должно быть заполнено")
+    private String patronymic = "Не указано";
     
-    private String firstName;
-    private String lastName;
-    private String patronymic;
     private String email;
     private String phoneNumber;
+    
+    @CreationTimestamp
     private Date hireDate;
     
     @OneToOne(cascade = CascadeType.ALL)
     private Passport passport;
    
+    
     @ManyToOne
     @JoinColumn(name = "staffing_table_id")
     private StaffingTable staffingTable;
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee")
     private List<Education> educations = new ArrayList<>();
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee")
     private List<Family> familyMembers = new ArrayList<>();
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee")
     private List<JobHistory> jobHistoryList = new ArrayList<>();
     
-    @OneToMany(cascade = CascadeType.MERGE , mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee")
     private List<Vacation> vacationsList = new ArrayList<>();
     
     @Override
