@@ -16,13 +16,17 @@ import mospolytech.engineering2020.fall.epprojectfall.domain.Passport;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Position;
 import mospolytech.engineering2020.fall.epprojectfall.domain.StaffingTable;
 import mospolytech.engineering2020.fall.epprojectfall.domain.item.StaffingTableItem;
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Page;
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,10 +53,15 @@ public class EmployeeController {
     
     
     @GetMapping
-    public String getEmployeesPage(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size, Model model) {
-        model.addAttribute("employees", employeeService.getPage(pageNumber, size));
+    public String getEmployeesPage(){
         return "admin/employee/index";
+    }
+    
+    @PostMapping
+    @ResponseBody
+    public Page<Employee> listEmployeesAjax(@RequestBody PagingRequest pagingRequest) {
+
+        return employeeService.getEmployees(pagingRequest);
     }
     
     @GetMapping("{id}") 
@@ -146,4 +155,9 @@ public class EmployeeController {
         return savedEmployee.getId().toString();
     }
     
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public void deleteEmployees(@RequestBody List<Employee> listEmployees){
+        employeeService.deleteAll(listEmployees);
+    }
 }

@@ -1,7 +1,8 @@
 <th:block th:fragment="js">
     <th:block th:switch="${page}">
         <th:block th:case="employeeIndexAdmin">
-            <script th:src="@{/resources/js/admin/employee.js}"></script>
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+            <script th:src="@{/resources/js/admin/employeeDatatables.js}"></script>
         </th:block>
         <th:block th:case="employeeUpdateAdmin">
             <script th:src="@{/resources/js/admin/employee.js}"></script>

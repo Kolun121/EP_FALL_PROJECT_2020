@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Long>, JpaRepository<Employee, Long>{
+    List<Employee> findAll();
     List<Employee> findAllByStaffingTableId(Long staffingTableId);
 }

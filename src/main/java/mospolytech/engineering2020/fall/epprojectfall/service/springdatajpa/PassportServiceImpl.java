@@ -6,13 +6,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Passport;
 import mospolytech.engineering2020.fall.epprojectfall.repository.PassportRepository;
-
-import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Paged;
-import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Paging;
 import mospolytech.engineering2020.fall.epprojectfall.service.PassportService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 
 @Service

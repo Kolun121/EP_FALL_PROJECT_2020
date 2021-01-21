@@ -33,22 +33,57 @@ public final class StaffingTableComparators {
         map.put(new Key("id", Direction.desc), Comparator.comparing(StaffingTable::getId)
                                                            .reversed());
 
-        map.put(new Key("salary", Direction.asc), Comparator.comparing(StaffingTable::getSalary));
-        map.put(new Key("salary", Direction.desc), Comparator.comparing(StaffingTable::getSalary)
-                                                                 .reversed());
+        map.put(new Key("salary", Direction.asc), 
+                Comparator.comparing((StaffingTable st) -> {
+                    if(st.getSalary() == null){
+                        st.setSalary(0l);
+                    }
+                    return st.getSalary();
+                }));
+        map.put(new Key("salary", Direction.desc), 
+                Comparator.comparing((StaffingTable st) -> {
+                    if(st.getSalary() == null){
+                        st.setSalary(0l);
+                    }
+                    return st.getSalary();
+                }).reversed());
 
         map.put(new Key("employeesNumber", Direction.asc), Comparator.comparing(StaffingTable::getEmployeesNumber));
         map.put(new Key("employeesNumber", Direction.desc), Comparator.comparing(StaffingTable::getEmployeesNumber).reversed());
         
         map.put(new Key("departmentName", Direction.asc), 
-                Comparator.comparing(staffingTable -> staffingTable.getDepartment().getDepartmentName()));
+                Comparator.comparing((StaffingTable staffingTable) -> {
+                    if(staffingTable.getDepartment() == null){
+                        staffingTable.setDepartment(new Department());
+                        staffingTable.getDepartment().setDepartmentName("");
+                    }
+                    return staffingTable.getDepartment().getDepartmentName();
+                }));
         map.put(new Key("departmentName", Direction.desc), 
-                Comparator.comparing((StaffingTable staffingTable) -> staffingTable.getDepartment().getDepartmentName()).reversed());
+                Comparator.comparing((StaffingTable staffingTable) -> {
+                    if(staffingTable.getDepartment() == null){
+                        staffingTable.setDepartment(new Department());
+                        staffingTable.getDepartment().setDepartmentName("");
+                    }
+                    return staffingTable.getDepartment().getDepartmentName();
+                }).reversed());
         
         map.put(new Key("positionName", Direction.asc), 
-                Comparator.comparing(staffingTable -> staffingTable.getPosition().getPositionName()));
+                Comparator.comparing((StaffingTable staffingTable) -> {
+                    if(staffingTable.getPosition() == null){
+                        staffingTable.setPosition(new Position());
+                        staffingTable.getPosition().setPositionName("");
+                    }
+                    return staffingTable.getPosition().getPositionName();
+                }));
         map.put(new Key("positionName", Direction.desc), 
-                Comparator.comparing((StaffingTable staffingTable) -> staffingTable.getPosition().getPositionName()).reversed());
+                Comparator.comparing((StaffingTable staffingTable) -> {
+                    if(staffingTable.getPosition() == null){
+                        staffingTable.setPosition(new Position());
+                        staffingTable.getPosition().setPositionName("");
+                    }
+                    return staffingTable.getPosition().getPositionName();
+                }).reversed());
     }
 
     public static Comparator<StaffingTable> getComparator(String name, Direction dir) {

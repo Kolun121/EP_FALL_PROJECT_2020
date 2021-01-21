@@ -108,6 +108,7 @@ $('#deletePositions').on( 'click', function () {
         contentType : 'application/json; charset=utf-8',
         success: function(result){
             t.ajax.reload();
+            $('#deletePositions').prop('disabled', true);
         }
     });  
 });  

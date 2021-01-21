@@ -1,52 +1,23 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/fragments/layout :: layout (~{::main}, 'employeeIndexAdmin', 'Сотрудники')}">
 <main class="container">
-    <div class="container">
-        <h1 class="text-center">Сотрудники</h1>
-        <h2 class="text-center"><a th:onclick="employee.createEmployee(event)" th:href="@{employee/new}">Добавить сотрудника</a></h2>
-        <div class="row">
-            <div class="col-lg-10 mt-5 mb-5">
-                <table id="employees" class="table table-bordered table-responsive-sm">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>ФИО</th>
-                        <th>Ссылка</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="employee : ${employees.page}">
-                        <td th:text="${employee.id}">ID</td>
-                        <td>[[${employee.lastName}]] [[${employee.firstName}]] [[${employee.patronymic}]]</td>
-                        <td><a th:text="'Перейти'" th:href="@{'/admin/employees/' + ${employee.id}}"></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+    <h1 class="text-center">Сотрудники</h1>
+   
+    <button  id="createEmployee" class="btn btn-outline-primary">Добавить запись</button>
+    <button  id="deleteEmployees" class="btn btn-danger" disabled>Удалить выбранные</button>
+    <table id="data_table" class="uk-table uk-table-hover uk-table-striped">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Должность</th>
+                <th>Ссылка</th>
+            </tr>
+        </thead>
 
-                <nav aria-label="Page navigation" class="paging">
-                    <ul class="pagination" th:if="${employees.page.totalPages > 1}">
-                        <li class="page-item" th:classappend="${!employees.paging.isPrevEnabled()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'?pageNumber=' + ${employees.paging.pageNumber - 1}}"
-                               tabindex="-1">Пердыдущая</a>
-                        </li>
-                        <th:block th:each="item : ${employees.paging.getItems()}">
-                            <li class="page-item" th:classappend="${item.index == employees.paging.pageNumber? 'active' : ''}"
-                                th:if="${item.pageItemType.name() == 'PAGE'}">
-                                <a class="page-link" th:href="@{'?pageNumber=' + ${item.index}}"
-                                   th:text="${item.index}"></a>
-                            </li>
-                            <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                                <a class="page-link" href="#">...</a>
-                            </li>
-                        </th:block>
-                        <li class="page-item" th:classappend="${!employees.paging.isNextEnabled()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'?pageNumber=' + ${employees.paging.pageNumber + 1}}">Следующая</a>
-                        </li>
-                    </ul>
-                </nav>
 
-            </div>
-        </div>
-    </div>
+    </table>
 </main>
     
 </html>

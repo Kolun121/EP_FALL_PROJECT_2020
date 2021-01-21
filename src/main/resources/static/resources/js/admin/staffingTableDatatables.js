@@ -108,6 +108,7 @@ $('#deleteStaffingTables').on( 'click', function () {
         contentType : 'application/json; charset=utf-8',
         success: function(result){
             t.ajax.reload();
+            $('#deleteStaffingTables').prop('disabled', true);
         }
     });  
 });  

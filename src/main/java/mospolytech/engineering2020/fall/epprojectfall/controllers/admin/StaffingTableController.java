@@ -54,7 +54,6 @@ public class StaffingTableController {
     @ResponseBody
     public void newStaffingTable(Model model){
         StaffingTable newStaffingTable = new StaffingTable();
-//        System.out.println(newStaffingTable.getDepartment());
         staffingTableService.save(newStaffingTable);
     }
     

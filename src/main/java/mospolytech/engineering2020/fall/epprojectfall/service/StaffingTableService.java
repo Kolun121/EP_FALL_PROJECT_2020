@@ -7,5 +7,5 @@ import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingReques
 
 public interface StaffingTableService extends CrudService<StaffingTable, Long> {
     Page<StaffingTable> getStaffingTables(PagingRequest pagingRequest);
-    void deleteAll(Iterable<StaffingTable> departments);
+    void deleteAll(Iterable<StaffingTable> staffingTables);
 }

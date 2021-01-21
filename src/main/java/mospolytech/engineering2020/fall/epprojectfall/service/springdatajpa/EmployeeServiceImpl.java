@@ -1,34 +1,35 @@
 package mospolytech.engineering2020.fall.epprojectfall.service.springdatajpa;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.sql.Date;
 import org.springframework.stereotype.Service;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
+import mospolytech.engineering2020.fall.epprojectfall.domain.StaffingTable;
 import mospolytech.engineering2020.fall.epprojectfall.repository.EmployeeRepository;
 
-import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Paged;
-import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Paging;
 import mospolytech.engineering2020.fall.epprojectfall.service.EmployeeService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Page;
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Order;
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Column;
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingRequest;
+import mospolytech.engineering2020.fall.epprojectfall.comparator.EmployeeComparators;
+import mospolytech.engineering2020.fall.epprojectfall.domain.Department;
+import mospolytech.engineering2020.fall.epprojectfall.domain.Position;
+import org.springframework.util.ObjectUtils;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+    private static final Comparator<Employee> EMPTY_COMPARATOR = (e1, e2) -> 0;
     private final EmployeeRepository employeeRepository;
     
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-    }
-
-    
-    public Paged<Employee> getPage(int pageNumber, int size) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.ASC, "id"));
-        Page<Employee> postPage = employeeRepository.findAll(request);
-        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
     
     @Override
@@ -68,10 +69,151 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteById(Long id) {
         employeeRepository.deleteById(id);
     }
-
+    
+    @Override
+    public void deleteAll(Iterable<Employee> employees) {
+        employeeRepository.deleteAll(employees);
+    }
+    
     @Override
     public void saveAll(List<Employee> employees) {
         employeeRepository.saveAll(employees);
+    }
+
+    @Override
+    public Page<Employee> getEmployees(PagingRequest pagingRequest) {
+        List<Employee> employees = employeeRepository.findAll();
+       
+        return getPage(employees, pagingRequest);
+    }
+    
+     private Page<Employee> getPage(List<Employee> staffingTables, PagingRequest pagingRequest) {
+        List<Employee> filtered = staffingTables.stream()
+                                           .sorted(sortEmployees(pagingRequest))
+                                           .filter(filterEmployees(pagingRequest))
+                                           .skip(pagingRequest.getStart())
+                                           .limit(pagingRequest.getLength())
+                                           .collect(Collectors.toList());
+
+        long count = staffingTables.stream()
+                             .filter(filterEmployees(pagingRequest))
+                             .count();
+
+        Page<Employee> page = new Page<>(filtered);
+        page.setRecordsFiltered((int) count);
+        page.setRecordsTotal((int) count);
+        page.setDraw(pagingRequest.getDraw());
+        
+        return page;
+    }
+
+    private Predicate<Employee> filterEmployees(PagingRequest pagingRequest) {
+        if (pagingRequest.getSearch() == null || ObjectUtils.isEmpty(pagingRequest.getSearch()
+                                                                                  .getValue())) {
+            return employee -> true;
+        }
+        
+     
+        String value = pagingRequest.getSearch()
+                                    .getValue();
+        
+        Predicate<Employee> employeePredicate = employee -> 
+        {   
+            if(employee.getStaffingTable() == null){
+                employee.setStaffingTable(new StaffingTable());
+            }
+            if(employee.getStaffingTable().getDepartment() == null){
+                employee.getStaffingTable().setDepartment(new Department());
+                employee.getStaffingTable().getDepartment().setDepartmentName("");
+            }
+            
+            if(employee.getStaffingTable().getPosition() == null){
+                employee.getStaffingTable().setPosition(new Position());
+                employee.getStaffingTable().getPosition().setPositionName("");
+            }
+            
+            if(employee.getFirstName() == null){
+                employee.setFirstName("");
+            }
+            if(employee.getLastName() == null){
+                employee.setLastName("");
+            }
+            if(employee.getPatronymic() == null){
+                employee.setPatronymic("");
+            }
+            
+            if(employee.getEmail() == null){
+                employee.setEmail("");
+            }
+            
+            if(employee.getPhoneNumber() == null){
+                employee.setPhoneNumber("");
+            }
+            
+            if(employee.getHireDate()== null){
+                employee.setHireDate(new Date(0l));
+            }
+            
+            StringBuilder employeeFullName = new StringBuilder();
+            employeeFullName.append(employee.getFirstName())
+                    .append(" ")
+                    .append(employee.getLastName() )
+                    .append(" ")
+                    .append(employee.getPatronymic());
+            
+            //При условии, если в строку поиска вводят полное имя (фамилие или/и имя или/и отчество)
+            String[] fullNameStrings = value.split(" ");
+            Boolean isFullNameTyped = false;
+
+            for(String s: fullNameStrings){
+                if(employeeFullName.toString().contains(s)){
+                    isFullNameTyped = true;
+                } else{
+                    isFullNameTyped = false;
+                    break;
+                }
+            }
+            
+            return employee.getFirstName().contains(value) || 
+                    employee.getLastName().contains(value) || 
+                    employee.getPatronymic().contains(value) || 
+                    isFullNameTyped || 
+                    employee.getEmail().contains(value) ||  
+                    employee.getPhoneNumber().contains(value) ||  
+                    employee.getHireDate().toString().contains(value) ||  
+                    employee.getStaffingTable().getDepartment().getDepartmentName().contains(value) ||  
+                    employee.getStaffingTable().getPosition().getPositionName().contains(value) ||  
+                    employee.getId().toString().contains(value);
+        };
+        
+        return employeePredicate;
+    }
+
+    private Comparator<Employee> sortEmployees(PagingRequest pagingRequest) {
+        if (pagingRequest.getOrder() == null) {
+            return EMPTY_COMPARATOR;
+        }
+
+        try {
+            Order order = pagingRequest.getOrder()
+                                       .get(0);
+
+            int columnIndex = order.getColumn();
+            Column column = pagingRequest.getColumns()
+                                         .get(columnIndex);
+
+            Comparator<Employee> comparator = EmployeeComparators.getComparator(column.getData(), order.getDir());
+            if (comparator == null) {
+                return EMPTY_COMPARATOR;
+            }
+
+            return comparator;
+
+        } catch (Exception e) {
+          
+        }
+
+        return EMPTY_COMPARATOR;
     }
 
 }

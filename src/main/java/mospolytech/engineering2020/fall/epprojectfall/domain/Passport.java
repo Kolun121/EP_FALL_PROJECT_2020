@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class Passport implements Serializable{
     private String issuedBy;
     private Date issueDate;
     
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     private Employee employee;
     

@@ -1,6 +1,8 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,16 +43,19 @@ public class Employee implements Serializable{
     private String email;
     private String phoneNumber;
     
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonProperty("hireDate")
     @CreationTimestamp
     private Date hireDate;
     
+    
     @OneToOne(cascade = CascadeType.ALL)
     private Passport passport;
-   
     
     @ManyToOne
     @JoinColumn(name = "staffing_table_id")
     private StaffingTable staffingTable;
+    
     
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee")
     private List<Education> educations = new ArrayList<>();

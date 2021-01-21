@@ -120,7 +120,7 @@ public class StaffingTableServiceImpl implements StaffingTableService {
             }
             
             if(staffingTable.getSalary() == null){
-                staffingTable.setSalary(-1l);
+                staffingTable.setSalary(0l);
             }
             
             return staffingTable.getDepartment().getDepartmentName().contains(value) || 
