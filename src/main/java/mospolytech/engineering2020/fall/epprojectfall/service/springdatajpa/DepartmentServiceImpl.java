@@ -108,18 +108,16 @@ public class DepartmentServiceImpl implements DepartmentService {
         
      
         String value = pagingRequest.getSearch()
-                                    .getValue();
+                                    .getValue().toLowerCase();
         
-//        if(department){
-//        
-//        }
+
         Predicate<Department> departmentPredicate = department -> 
         {
             if(department.getDepartmentName() == null){
                 department.setDepartmentName("");
             }
             return department.getId().toString().contains(value) || 
-                    department.getDepartmentName().contains(value);
+                    department.getDepartmentName().toLowerCase().contains(value);
         };
         
         return departmentPredicate;

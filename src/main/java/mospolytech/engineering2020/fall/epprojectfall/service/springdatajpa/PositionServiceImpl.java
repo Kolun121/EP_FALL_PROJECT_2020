@@ -107,7 +107,7 @@ public class PositionServiceImpl implements PositionService {
         
      
         String value = pagingRequest.getSearch()
-                                    .getValue();
+                                    .getValue().toLowerCase();
         
         Predicate<Position> positionPredicate = position -> 
         {
@@ -115,7 +115,7 @@ public class PositionServiceImpl implements PositionService {
                 position.setPositionName("");
             }
             return position.getId().toString().contains(value) || 
-                    position.getPositionName().contains(value);
+                    position.getPositionName().toLowerCase().contains(value);
         };
         
         return positionPredicate;

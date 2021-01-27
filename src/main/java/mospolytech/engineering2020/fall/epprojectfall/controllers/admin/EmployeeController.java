@@ -75,12 +75,20 @@ public class EmployeeController {
     @PostMapping("{id}")
     public String updateEmployeeById(@PathVariable String id, @Valid Employee employee, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println(result.getFieldErrors());
+            
             return "admin/employee/updateEmployee";
         } else {
             employee.setId(Long.parseLong(id));
             employee.getPassport().setEmployee(employee);
             System.out.println(employee.getStaffingTable());
+            
+            StaffingTable staffingTable = staffingTableService.findById(employee.getStaffingTable().getId());
+
+            if(!staffingTable.getEmployees().contains(employee)) {
+                staffingTable.getEmployees().add(employee);
+
+            }
+            
             employeeService.save(employee);
             return "redirect:/admin/employees/" + id;
         }

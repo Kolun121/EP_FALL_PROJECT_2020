@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping("/employees")
-public class EmployeesController {
+@RequestMapping("/staffing")
+public class StaffingTableController {
     private final EmployeeService employeeService;
     
-    public EmployeesController(EmployeeService employeeService) {
+    public StaffingTableController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
     
     
     @GetMapping
-    public String getEmployeesPage(Model model) {
+    public String getStaffingTablesPage(Model model) {
 
-        return "user/employee/index";
+        return "user/staffing_table/index";
     }
     
 //    @PostMapping

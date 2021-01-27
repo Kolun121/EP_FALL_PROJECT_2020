@@ -105,7 +105,7 @@ public class StaffingTableServiceImpl implements StaffingTableService {
         
      
         String value = pagingRequest.getSearch()
-                                    .getValue();
+                                    .getValue().toLowerCase();
         
         Predicate<StaffingTable> staffingTablePredicate = staffingTable -> 
         {
@@ -123,8 +123,8 @@ public class StaffingTableServiceImpl implements StaffingTableService {
                 staffingTable.setSalary(0l);
             }
             
-            return staffingTable.getDepartment().getDepartmentName().contains(value) || 
-                    staffingTable.getPosition().getPositionName().contains(value) || 
+            return staffingTable.getDepartment().getDepartmentName().toLowerCase().contains(value) || 
+                    staffingTable.getPosition().getPositionName().toLowerCase().contains(value) || 
                     staffingTable.getId().toString().contains(value) || 
                     staffingTable.getSalary().toString().contains(value);
         };

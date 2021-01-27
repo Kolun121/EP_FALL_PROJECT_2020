@@ -115,7 +115,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         
      
         String value = pagingRequest.getSearch()
-                                    .getValue();
+                                    .getValue().toLowerCase();
         
         Predicate<Employee> employeePredicate = employee -> 
         {   
@@ -166,7 +166,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Boolean isFullNameTyped = false;
 
             for(String s: fullNameStrings){
-                if(employeeFullName.toString().contains(s)){
+                if(employeeFullName.toString().toLowerCase().contains(s.toLowerCase())){
                     isFullNameTyped = true;
                 } else{
                     isFullNameTyped = false;
@@ -174,15 +174,15 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
             }
             
-            return employee.getFirstName().contains(value) || 
-                    employee.getLastName().contains(value) || 
-                    employee.getPatronymic().contains(value) || 
+            return employee.getFirstName().toLowerCase().contains(value) || 
+                    employee.getLastName().toLowerCase().contains(value) || 
+                    employee.getPatronymic().toLowerCase().contains(value) || 
                     isFullNameTyped || 
-                    employee.getEmail().contains(value) ||  
+                    employee.getEmail().toLowerCase().contains(value) ||  
                     employee.getPhoneNumber().contains(value) ||  
                     employee.getHireDate().toString().contains(value) ||  
-                    employee.getStaffingTable().getDepartment().getDepartmentName().contains(value) ||  
-                    employee.getStaffingTable().getPosition().getPositionName().contains(value) ||  
+                    employee.getStaffingTable().getDepartment().getDepartmentName().toLowerCase().contains(value) ||  
+                    employee.getStaffingTable().getPosition().getPositionName().toLowerCase().contains(value) ||  
                     employee.getId().toString().contains(value);
         };
         

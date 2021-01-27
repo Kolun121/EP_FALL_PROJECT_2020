@@ -17,9 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive" sec:authorize="isAuthenticated()">
                 <ul class="navbar-nav ml-auto">
                     <li th:replace="::menuItem ('/employees','employeeIndexUser','Сотрудники', ${page})"/>
-                    <li th:replace="::menuItem ('/','ads','Объявления', ${page})"/>
-                    <li th:replace="::menuItem ('/','ads','Объявления', ${page})"/>
-                    <li th:replace="::menuItem ('/','ads','Объявления', ${page})"/>
+                    <li th:replace="::menuItem ('/staffing','indexStaffingTableUser','Штатное расписание', ${page})"/>
                 </ul>
             </div>
             <div class="header" sec:authorize="not isAuthenticated()">

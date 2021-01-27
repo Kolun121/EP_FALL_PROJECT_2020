@@ -1,0 +1,14 @@
+<th:block th:fragment="js">
+    <th:block th:switch="${page}">
+        <th:block th:case="employeeIndexUser">
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js">
+                </script>
+            <script th:src="@{/resources/js/employeeDatatables.js}"></script>
+        </th:block>
+        <th:block th:case="indexStaffingTableUser">
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js">
+                </script>
+            <script th:src="@{/resources/js/staffingTableDatatables.js}"></script>
+        </th:block>
+    </th:block>
+</th:block>
