@@ -43,7 +43,7 @@ public class Employee implements Serializable{
     private String email;
     private String phoneNumber;
     
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @JsonProperty("hireDate")
     @CreationTimestamp
     private Date hireDate;

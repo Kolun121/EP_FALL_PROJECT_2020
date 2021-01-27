@@ -1,6 +1,5 @@
 package mospolytech.engineering2020.fall.epprojectfall.controllers.admin;
 
-import java.util.Arrays;
 import java.util.List;
 import mospolytech.engineering2020.fall.epprojectfall.service.DepartmentService;
 import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingRequest;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/departments")
 public class DepartmentController {
     private final DepartmentService departmentService;
-    
     
     public DepartmentController(
             DepartmentService departmentService

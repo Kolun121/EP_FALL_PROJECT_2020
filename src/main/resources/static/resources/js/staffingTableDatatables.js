@@ -5,26 +5,13 @@ var token = $("input[name='_csrf']").val();
     });
     
 var t = $('#data_table').DataTable({
-        columnDefs: [{
-            orderable: false,
-            targets: [5]
-        },
-        {
-            "targets": 5,
-            "data": "id",
-            "render": function ( data, type, row, meta ) {
-                console.log(data);
-                return '<a text="Перейти" href="/admin/staffing/' + data + '">Перейти</a>';
-            }
-        }],
        "processing": true,
        "serverSide": true,
-       "lengthChange": false,
        "language": {
             "info":           "Отображается от _START_ до _END_ из _TOTAL_ записей",
             "infoPostFix":    "",
             "thousands":      ",",
-            "lengthMenu":     "Show _MENU_ entries",
+            "lengthMenu":     "Показывать _MENU_ записей",
             "infoEmpty":      "Найдено 0 записей",
             "loadingRecords": "Загрузка...",
             "processing":     "Загрузка...",
@@ -53,7 +40,6 @@ var t = $('#data_table').DataTable({
            }
        },
        "columns": [
-           {"data": "id", "width": "5%"},
            {"data": "position.positionName", 
                "width": "40%",
                "defaultContent": "<i>Не указана</i>"
@@ -68,47 +54,5 @@ var t = $('#data_table').DataTable({
                "defaultContent": "<i>Не указана</i>"
            },
            {"data": "employeesNumber", "width": "5%"},
-           {"data": "id", "width": "5%"}
        ]
 });
-
-
-$('#data_table tbody').on( 'click', 'tr', function () {
-    $(this).toggleClass('selected');
-    
-    if(t.rows('.selected')[0].length !== 0){
-        $('#deleteStaffingTables').prop('disabled', false);
-    } else{
-        $('#deleteStaffingTables').prop('disabled', true);
-    }
-
-} );
-
-$('#createStaffingTable').on( 'click', function () {
-    $.ajax({
-        url: document.URL + '/new',
-        type: "POST",
-        success: function(result){
-            t.ajax.reload();
-        }
-    });  
-});  
-
-$('#deleteStaffingTables').on( 'click', function () {
-    var dataArr = [];
-    t.rows('.selected').every( function ( rowIdx, tableLoop, rowLoop ) {
-        var d = this.data();
-        dataArr.push(d);
-    } );
-    console.log(dataArr);
-    $.ajax({
-        url: document.URL + '/delete',
-        type: "DELETE",
-        data: JSON.stringify(dataArr),
-        contentType : 'application/json; charset=utf-8',
-        success: function(result){
-            t.ajax.reload();
-            $('#deleteStaffingTables').prop('disabled', true);
-        }
-    });  
-});  

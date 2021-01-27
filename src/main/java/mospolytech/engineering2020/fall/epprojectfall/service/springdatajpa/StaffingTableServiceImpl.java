@@ -126,6 +126,7 @@ public class StaffingTableServiceImpl implements StaffingTableService {
             return staffingTable.getDepartment().getDepartmentName().toLowerCase().contains(value) || 
                     staffingTable.getPosition().getPositionName().toLowerCase().contains(value) || 
                     staffingTable.getId().toString().contains(value) || 
+                    staffingTable.getEmployeesNumber().toString().contains(value) || 
                     staffingTable.getSalary().toString().contains(value);
         };
         

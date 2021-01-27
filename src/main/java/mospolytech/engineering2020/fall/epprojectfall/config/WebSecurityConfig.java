@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import javax.sql.DataSource;
+import mospolytech.engineering2020.fall.epprojectfall.domain.enumeration.Permission;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
 //                    .antMatchers("/**").permitAll()
+                    .antMatchers("/admin/**").hasAuthority(Permission.ADMIN.getPermission())
                     .antMatchers("/webjars/**").permitAll()
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("/registration").permitAll()

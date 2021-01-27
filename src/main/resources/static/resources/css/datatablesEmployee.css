@@ -7,3 +7,6 @@ tr.shown td.details-control {
     background: url('../image/minus.png') no-repeat center center;
     background-size: 30px;
 }
+main{
+    padding: 20px 30px 30px 40px;
+}

@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.sql.Date;
+import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
 import mospolytech.engineering2020.fall.epprojectfall.domain.StaffingTable;
@@ -21,6 +22,7 @@ import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingReques
 import mospolytech.engineering2020.fall.epprojectfall.comparator.EmployeeComparators;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Department;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Position;
+import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Direction;
 import org.springframework.util.ObjectUtils;
 
 @Service
@@ -174,13 +176,38 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
             }
             
+            //Приводим дату найма в нужный формат
+            LocalDate localDate = employee.getHireDate().toLocalDate().minusDays(1);
+            
+            int month = localDate.getMonthValue();
+            int day = localDate.getDayOfMonth();
+            int year = localDate.getYear();
+            
+            StringBuilder hireDate = new StringBuilder();
+            
+            if(day < 10){
+                hireDate.append("0").append(day).append("/");
+            }else{
+                hireDate.append(day).append("/");
+            }
+            
+            if(month < 10){
+                hireDate.append("0").append(month).append("/");
+            }else{
+                hireDate.append(month).append("/");
+            }
+            
+            hireDate.append(year);
+            
+            
+            System.out.println(hireDate);
             return employee.getFirstName().toLowerCase().contains(value) || 
                     employee.getLastName().toLowerCase().contains(value) || 
                     employee.getPatronymic().toLowerCase().contains(value) || 
                     isFullNameTyped || 
                     employee.getEmail().toLowerCase().contains(value) ||  
                     employee.getPhoneNumber().contains(value) ||  
-                    employee.getHireDate().toString().contains(value) ||  
+                    hireDate.toString().contains(value) ||  
                     employee.getStaffingTable().getDepartment().getDepartmentName().toLowerCase().contains(value) ||  
                     employee.getStaffingTable().getPosition().getPositionName().toLowerCase().contains(value) ||  
                     employee.getId().toString().contains(value);
@@ -201,6 +228,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             int columnIndex = order.getColumn();
             Column column = pagingRequest.getColumns()
                                          .get(columnIndex);
+            
 
             Comparator<Employee> comparator = EmployeeComparators.getComparator(column.getData(), order.getDir());
             if (comparator == null) {

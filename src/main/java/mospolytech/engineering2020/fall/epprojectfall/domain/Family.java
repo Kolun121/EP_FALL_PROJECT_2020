@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Date;
@@ -27,6 +28,7 @@ public class Family implements Serializable {
     private String lastName;
     private String patronymic;
     private String relation;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
     
     @JsonIgnore

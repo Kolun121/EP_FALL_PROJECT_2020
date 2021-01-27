@@ -51,7 +51,7 @@ public final class StaffingTableComparators {
         map.put(new Key("employeesNumber", Direction.asc), Comparator.comparing(StaffingTable::getEmployeesNumber));
         map.put(new Key("employeesNumber", Direction.desc), Comparator.comparing(StaffingTable::getEmployeesNumber).reversed());
         
-        map.put(new Key("departmentName", Direction.asc), 
+        map.put(new Key("department.departmentName", Direction.asc), 
                 Comparator.comparing((StaffingTable staffingTable) -> {
                     if(staffingTable.getDepartment() == null){
                         staffingTable.setDepartment(new Department());
@@ -59,7 +59,7 @@ public final class StaffingTableComparators {
                     }
                     return staffingTable.getDepartment().getDepartmentName();
                 }));
-        map.put(new Key("departmentName", Direction.desc), 
+        map.put(new Key("department.departmentName", Direction.desc), 
                 Comparator.comparing((StaffingTable staffingTable) -> {
                     if(staffingTable.getDepartment() == null){
                         staffingTable.setDepartment(new Department());
@@ -68,7 +68,7 @@ public final class StaffingTableComparators {
                     return staffingTable.getDepartment().getDepartmentName();
                 }).reversed());
         
-        map.put(new Key("positionName", Direction.asc), 
+        map.put(new Key("position.positionName", Direction.asc), 
                 Comparator.comparing((StaffingTable staffingTable) -> {
                     if(staffingTable.getPosition() == null){
                         staffingTable.setPosition(new Position());
@@ -76,7 +76,7 @@ public final class StaffingTableComparators {
                     }
                     return staffingTable.getPosition().getPositionName();
                 }));
-        map.put(new Key("positionName", Direction.desc), 
+        map.put(new Key("position.positionName", Direction.desc), 
                 Comparator.comparing((StaffingTable staffingTable) -> {
                     if(staffingTable.getPosition() == null){
                         staffingTable.setPosition(new Position());

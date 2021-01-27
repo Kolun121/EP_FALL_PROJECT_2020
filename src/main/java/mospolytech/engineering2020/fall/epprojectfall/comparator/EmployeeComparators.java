@@ -105,7 +105,7 @@ public final class EmployeeComparators {
         );
         
         
-        map.put(new Key("departmentName", Direction.asc), 
+        map.put(new Key("staffingTable.department.departmentName", Direction.asc), 
             Comparator.comparing((Employee employee) -> {
                 if(employee.getStaffingTable() == null){
                     employee.setStaffingTable(new StaffingTable());
@@ -118,7 +118,7 @@ public final class EmployeeComparators {
                 return employee.getStaffingTable().getDepartment().getDepartmentName();
             })
         );
-        map.put(new Key("departmentName", Direction.desc), 
+        map.put(new Key("staffingTable.department.departmentName", Direction.desc), 
             Comparator.comparing((Employee employee) -> {
                 if(employee.getStaffingTable() == null){
                     employee.setStaffingTable(new StaffingTable());
@@ -132,7 +132,7 @@ public final class EmployeeComparators {
             }).reversed()
         );
         
-        map.put(new Key("positionName", Direction.asc), 
+        map.put(new Key("staffingTable.position.positionName", Direction.asc), 
             Comparator.comparing((Employee employee) -> {
                 if(employee.getStaffingTable() == null){
                     employee.setStaffingTable(new StaffingTable());
@@ -145,7 +145,7 @@ public final class EmployeeComparators {
                 return employee.getStaffingTable().getPosition().getPositionName();
             })
         );
-        map.put(new Key("positionName", Direction.desc), 
+        map.put(new Key("staffingTable.position.positionName", Direction.desc), 
             Comparator.comparing((Employee employee) -> {
                 if(employee.getStaffingTable() == null){
                     employee.setStaffingTable(new StaffingTable());
@@ -163,7 +163,7 @@ public final class EmployeeComparators {
     public static Comparator<Employee> getComparator(String name, Direction dir) {
         return map.get(new Key(name, dir));
     }
-
+    
     private EmployeeComparators() {
     }
 }

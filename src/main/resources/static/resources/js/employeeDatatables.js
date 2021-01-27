@@ -7,16 +7,8 @@ var token = $("input[name='_csrf']").val();
 var t = $('#data_table').DataTable({
         columnDefs: [{
             orderable: false,
-            targets: [6]
+            targets: [6, 7, 8]
         },
-//        {
-//            "targets": 6,
-//            "data": "id",
-//            "render": function ( data, type, row, meta ) {
-//                console.log(data);
-//                return '<a text="Перейти" href="/admin/employees/' + data + '">Перейти</a>';
-//            }
-//        }
         ],
        "processing": true,
        "serverSide": true,
@@ -54,30 +46,39 @@ var t = $('#data_table').DataTable({
        },
        "columns": [
            {"data": "firstName", 
-               "width": "15%",
+               "width": "10%",
                "defaultContent": "<i>Не указана</i>"
            },
            {"data": "lastName", 
-               "width": "15%",
+               "width": "10%",
                "defaultContent": "<i>Не указана</i>"          
            },
            {"data": "patronymic", 
-               "width": "15%",
+               "width": "13%",
                "defaultContent": "<i>Не указана</i>"
            },
            {"data": "staffingTable.position.positionName", 
-               "width": "15%",
+               "width": "10%",
                "defaultContent": "<i>Не указана</i>"
            },
            {"data": "staffingTable.department.departmentName", 
-               "width": "15%",
+               "width": "10%",
                "defaultContent": "<i>Не указан</i>"
            },
            {"data": "hireDate", 
-               "width": "50%",
+                "width": "10%",
+                "defaultContent": "<i>Не указан</i>"
+           },
+           {"data": "phone", 
+//               "width": "50%",
+               "defaultContent": "<i>Не указан</i>"
+           },
+           {"data": "email", 
+//               "width": "50%",
                "defaultContent": "<i>Не указан</i>"
            },
            {
+               "width":"10px",
                 "className":      'details-control',
                 "orderable":      false,
                 "data":           null,
@@ -114,99 +115,216 @@ function format ( d ) {
        passport.passportID = "ID паспорта не указан"; 
     }
     
+    var passportRow = '<h3 class="card-header" style="border: 1px solid rgba(0,0,0,.125);" >Паспорт сотрудника</h3>' +
+            '<div class="card">' +
+    '<ul class="list-group list-group-flush">' +
+        '<li class="list-group-item">Паспорт ID: ' + passport.passportID + '</li>' +
+        '<li class="list-group-item">Кем выдан паспорт: ' + passport.issuedBy + '</li>' +
+        '<li class="list-group-item">Дата выдачи паспорта: ' + passport.issueDate + '</li>' +
+    '</ul>' +
+    '</div>';
+
     var educations = d.educations;
-    educations.forEach(function(education, i, educations) {
-        education.specialty;
-        education.qualification;
-        education.graduationDate;
-    });
+    var educationsRow = '<h3 class="card-header" style="border: 1px solid rgba(0,0,0,.125);">Образование сотрудника</h3>';
+    
+    if(Array.isArray(educations) && educations.length){
+        educationsRow = educationsRow + '<div class="card-deck justify-content-center">';
+        educations.forEach(function(education, i, educations) {
+            
+            if(education.specialty === null){
+                education.specialty = "Специальность не указана"; 
+            }
+            if(education.qualification === null){
+                education.qualification = "Квалификация не указана"; 
+            }
+            if(education.graduationDate === null){
+                education.graduationDate = "Дата выпуска не указана"; 
+            }
+            
+            educationsRow = educationsRow +
+            '<div class="card col-3">' +
+                '<div class="card-body">' +
+                    '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item">Специальность: ' + education.specialty + '</li>' +
+                        '<li class="list-group-item">Квалификация: ' + education.qualification + '</li>' +
+                        '<li class="list-group-item">Дата выпуска: ' + education.graduationDate + '</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>';
+            
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                educationsRow = educationsRow + '</div>';
+            }
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                educationsRow = educationsRow + '<div class="card-deck justify-content-center">';
+            }
+            
+        });
+    educationsRow = educationsRow + '</div>';
+    }else{
+        educationsRow = educationsRow +
+        '<div class="card-deck">'+
+            '<div class="card">' +
+                '<div class="card-body">' +
+                    '<h4 class="card-title">Образование сотрудника не указано</h4>' +
+                '</div>' +
+            '</div>'+
+        '</div>';
+    }
     
     var familyMembers = d.familyMembers;
-    familyMembers.forEach(function(familyMember, i, familyMembers) {
-        familyMember.firstName;
-        familyMember.lastName;
-        familyMember.patronymic;
-        familyMember.relation;
-        familyMember.birthDate;
-    });
+
+    var familyMembersRow = '<h3 class="card-header" style="border: 1px solid rgba(0,0,0,.125);">Члены семьи сотрудника</h3>';
+
+    if(Array.isArray(familyMembers) && familyMembers.length){
+        familyMembersRow = familyMembersRow + '<div class="card-deck justify-content-center">';
+        familyMembers.forEach(function(familyMember, i, familyMembers) {
+            if(familyMember.firstName === null){
+                familyMember.firstName = "Имя не указано"; 
+            }
+            if(familyMember.lastName === null){
+                familyMember.lastName = "Фамилия не указана"; 
+            }
+            if(familyMember.patronymic === null){
+                familyMember.patronymic = "Отчество не указано"; 
+            }
+            if(familyMember.relation === null){
+                familyMember.relation = "Родство не указано"; 
+            }
+            if(familyMember.birthDate === null){
+                familyMember.birthDate = "Дата рождения не указана"; 
+            }
+            
+            familyMembersRow = familyMembersRow +
+            '<div class="card col-3">' +
+                '<div class="card-body">' +
+                    '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item">Имя: ' + familyMember.firstName + '</li>' +
+                        '<li class="list-group-item">Фамилия: ' + familyMember.lastName + '</li>' +
+                        '<li class="list-group-item">Отчество: ' + familyMember.patronymic + '</li>' +
+                        '<li class="list-group-item">Родство: ' + familyMember.relation + '</li>' +
+                        '<li class="list-group-item">Дата рождения: ' + familyMember.birthDate + '</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>';
+            
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                familyMembersRow = familyMembersRow + '</div>';
+            }
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                familyMembersRow = familyMembersRow + '<div class="card-deck justify-content-center">';
+            }
+
+        });
+    familyMembersRow = familyMembersRow + '</div>';
+    }else{
+        familyMembersRow = familyMembersRow +
+        '<div class="card-deck">'+
+            '<div class="card">' +
+                '<div class="card-body">' +
+                    '<h4 class="card-title">Семья сотрудника не указана</h4>' +
+                '</div>' +
+            '</div>'+
+        '</div>';
+    }
     
+  
     var jobHistoryList = d.jobHistoryList;
-    jobHistoryList.forEach(function(job, i, jobHistoryList) {
-        job.jobTitle;
-        job.startDate;
-        job.endDate;
-    });
+    var jobHistoryRow = '<h3 class="card-header" style="border: 1px solid rgba(0,0,0,.125);">Предыдущие должности сотрудника</h3>';
+
+    if(Array.isArray(jobHistoryList) && jobHistoryList.length){
+        jobHistoryRow = jobHistoryRow + '<div class="card-deck justify-content-center">';
+        jobHistoryList.forEach(function(job, i, jobHistoryList) {
+            if(job.jobTitle === null){
+                job.jobTitle = "Название должности не указано"; 
+            }
+            if(job.startDate === null){
+                job.startDate = "Дата вступления на должность не указана"; 
+            }
+
+            if(job.endDate === null){
+                job.endDate = "Дата выхода с должности не указана"; 
+            }
+            
+            jobHistoryRow = jobHistoryRow +
+            '<div class="card col-3">' +
+                '<div class="card-body">' +
+                    '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item">Название должности: ' + job.jobTitle + '</li>' +
+                        '<li class="list-group-item">Дата вступления: ' + job.startDate + '</li>' +
+                        '<li class="list-group-item">Дата выхода: ' + job.endDate + '</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>';
+            
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                jobHistoryRow = jobHistoryRow + '</div>';
+            }
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                jobHistoryRow = jobHistoryRow + '<div class="card-deck justify-content-center">';
+            }
+            
+        });
+    jobHistoryRow = jobHistoryRow + '</div>';
+    }else{
+        jobHistoryRow = jobHistoryRow +
+        '<div class="card-deck">'+
+            '<div class="card">' +
+                '<div class="card-body">' +
+                    '<h4 class="card-title">Предыдущие должности сотрудника не указаны</h4>' +
+                '</div>' +
+            '</div>'+
+        '</div>';
+    }
     
     var vacationsList = d.vacationsList;
-    vacationsList.forEach(function(vac, i, vacationsList) {
-        vac.vacationType;
-        vac.startDate;
-        vac.endDate;
-    });
+    var vacationRow = '<h3 class="card-header" style="border: 1px solid rgba(0,0,0,.125);">История отпусков сотрудника</h3>';
+
+    if(Array.isArray(vacationsList) && vacationsList.length){
+        vacationRow = vacationRow + '<div class="card-deck justify-content-center">';
+        vacationsList.forEach(function(vac, i, vacationsList) {
+            if(vac.vacationType === null){
+                vac.vacationType = "Тип отпуска не указан"; 
+            }
+            if(vac.startDate === null){
+                vac.startDate = "Дата выхода в отпуск не указана"; 
+            }
+
+            if(vac.endDate === null){
+                vac.endDate = "Дата выхода с отпуска  не указана"; 
+            }
+            console.log(vac.vacationType);
+            
+            vacationRow = vacationRow +
+            '<div class="card col-3">' +
+                '<div class="card-body">' +
+                    '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item">Тип отпуска: ' + vac.vacationType + '</li>' +
+                        '<li class="list-group-item">Дата выхода в отпуск: ' + vac.startDate + '</li>' +
+                        '<li class="list-group-item">Дата выхода с отпуска: ' + vac.endDate + '</li>' +
+                    '</ul>' +
+                '</div>' +
+            '</div>';
+            
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                vacationRow = vacationRow + '</div>';
+            }
+            if((i + 1)%3 === 0 && (i + 1)/3 >= 1){
+                vacationRow = vacationRow + '<div class="card-deck justify-content-center">';
+            }
+            
+        });
+    vacationRow = vacationRow + '</div>';
+    }else{
+        vacationRow = vacationRow +
+        '<div class="card-deck">'+
+            '<div class="card">' +
+                '<div class="card-body">' +
+                    '<h4 class="card-title">История отпусков сотрудника не указана</h4>' +
+                '</div>' +
+            '</div>'+
+        '</div>';
+    }
     
-    var vacationsListHtml = '<div class="card-deck">'+
-  '<div class="card">' +
-    '<div class="card-body">' +
-      '<h5 class="card-title">Card title</h5>' +
-      '<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>' +
-      '<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>' +
-    '</div>' +
-  '</div>' +
-  '<div class="card">' +
-    '<div class="card-body">' +
-      '<h5 class="card-title">Предыдущая должность</h5>' +
-      '<ul class="list-group list-group-flush">' +
-    '<li class="list-group-item">Название должности: 123123123</li>' +
-   '<li class="list-group-item">Дата вступления на должность:</li>' +
-    '<li class="list-group-item">Дата ухода с должности:</li>' +
-  '</ul>' +
-    '</div>' +
-  '</div>' +
-  '<div class="card">' +
-    '<div class="card-body">' +
-      '<h5 class="card-title">Card title</h5>' +
-      '<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>' +
-      '<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>' +
-    '</div>' +
-  '</div>' +
-'</div>';
-    console.log(passport);
-    var passportRow = '<div class="card text-center">' +
-  '<div class="card-header"> Паспорт' +
-  '</div>' +
-  '<ul class="list-group list-group-flush">' +
-    '<li class="list-group-item">Cras justo odio</li>' +
-   '<li class="list-group-item">Dapibus ac facilisis in</li>' +
-    '<li class="list-group-item">Vestibulum at eros</li>' +
-  '</ul>' +
-'</div>';
-    return vacationsListHtml + vacationsListHtml ;
-//    return '<table cellpadding="15" cellspacing="0" border="0" style="padding-left:50px;">'+
-//        '<tr>'+
-//            '<td>Full name:</td>'+
-//            '<td>'+d.firstName+'</td>'+
-//        '</tr>'+
-//        '<tr>'+
-//            '<td>Extension number:</td>'+
-//            '<td>'+d.firstName+'</td>'+
-//        '</tr>'+
-//        '<tr>'+
-//            '<td>Extra info:</td>'+
-//            '<td>And any further details here (images etc)...</td>'+
-//        '</tr>'+
-//    '</table>'+
-//    '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-//        '<tr>'+
-//            '<td>Full name:</td>'+
-//            '<td>'+d.firstName+'</td>'+
-//        '</tr>'+
-//        '<tr>'+
-//            '<td>Extension number:</td>'+
-//            '<td>'+d.firstName+'</td>'+
-//        '</tr>'+
-//        '<tr>'+
-//            '<td>Extra info:</td>'+
-//            '<td>And any further details here (images etc)...</td>'+
-//        '</tr>'+
-//    '</table>';
+    return passportRow + educationsRow + familyMembersRow + jobHistoryRow + vacationRow;
 }
