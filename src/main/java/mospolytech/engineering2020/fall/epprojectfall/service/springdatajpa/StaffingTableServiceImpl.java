@@ -91,10 +91,11 @@ public class StaffingTableServiceImpl implements StaffingTableService {
         for(StaffingTable staffingTable: staffingTables){
             employees.addAll(employeeRepository.findAllByStaffingTableId(staffingTable.getId()));
         }
-        
+
         for(Employee employee: employees){
             employee.setStaffingTable(null);
         }
+
         
         employeeRepository.saveAll(employees);
         staffingTableRepository.deleteAll(staffingTables);
