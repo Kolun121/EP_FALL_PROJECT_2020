@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Date;
@@ -28,7 +29,9 @@ public class Vacation implements Serializable{
 
     @Enumerated(value = EnumType.STRING)
     private VacationType vacationType;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
     
     @JsonIgnore

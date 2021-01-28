@@ -32,7 +32,7 @@ public class VacationServiceImpl implements VacationService {
         Optional<Vacation> vacationOptional = vacationRepository.findById(id);
         
         if (!vacationOptional.isPresent()) {
-            throw new RuntimeException("Отпуск не найден по id:" + id );
+            return null;
         }
 
         return vacationOptional.get();

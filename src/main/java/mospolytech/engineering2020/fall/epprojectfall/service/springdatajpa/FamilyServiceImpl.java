@@ -32,7 +32,7 @@ public class FamilyServiceImpl<T> implements FamilyService {
         Optional<Family> familyOptional = familyRepository.findById(id);
         
         if (!familyOptional.isPresent()) {
-            throw new RuntimeException("Член семьи не найден по id:" + id );
+            return null;
         }
 
         return familyOptional.get();

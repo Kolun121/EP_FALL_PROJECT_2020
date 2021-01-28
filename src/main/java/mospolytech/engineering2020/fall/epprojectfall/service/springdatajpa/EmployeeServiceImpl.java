@@ -54,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
         
         if (!employeeOptional.isPresent()) {
-            throw new RuntimeException("Сотрудник не найден по id:" + id );
+            return null;
         }
 
         return employeeOptional.get();
@@ -82,6 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteById(Long id) {
         employeeRepository.deleteById(id);
+        
     }
     
     @Override

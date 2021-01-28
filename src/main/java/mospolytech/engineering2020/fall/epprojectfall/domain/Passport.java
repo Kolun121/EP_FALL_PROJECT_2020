@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -25,6 +26,8 @@ public class Passport implements Serializable{
     
     private String passportID;
     private String issuedBy;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date issueDate;
     
     @JsonIgnore
@@ -40,7 +43,7 @@ public class Passport implements Serializable{
         }
         Passport passport = (Passport) o;
         return id == passport.id &&
-                Objects.equals(passportID, issueDate);
+                Objects.equals(passportID, passport.passportID);
     }
     
     @Override

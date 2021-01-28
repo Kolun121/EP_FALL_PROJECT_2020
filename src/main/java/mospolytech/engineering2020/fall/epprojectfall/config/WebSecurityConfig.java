@@ -35,10 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
 //                    .antMatchers("/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                     .antMatchers("/admin/**").hasAuthority(Permission.ADMIN.getPermission())
                     .antMatchers("/webjars/**").permitAll()
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("/registration").permitAll()
+                    .antMatchers("/api/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin().loginPage("/login").permitAll()
@@ -51,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/");
         
-//        http.csrf().disable();
+        http.csrf().disable();
 //        http.headers().frameOptions().disable();
     }
 

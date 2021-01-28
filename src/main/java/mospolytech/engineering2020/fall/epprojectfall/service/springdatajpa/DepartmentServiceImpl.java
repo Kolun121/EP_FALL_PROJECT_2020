@@ -46,7 +46,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         Optional<Department> departmentOptional = departmentRepository.findById(id);
         
         if (!departmentOptional.isPresent()) {
-            throw new RuntimeException("Отдел не найден по id:" + id );
+            return null;
         }
 
         return departmentOptional.get();

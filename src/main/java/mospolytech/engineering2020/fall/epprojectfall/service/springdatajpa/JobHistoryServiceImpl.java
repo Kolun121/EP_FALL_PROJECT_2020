@@ -32,7 +32,7 @@ public class JobHistoryServiceImpl implements JobHistoryService {
         Optional<JobHistory> jobHistoryOptional = jobHistoryRepository.findById(id);
         
         if (!jobHistoryOptional.isPresent()) {
-            throw new RuntimeException("Предыдущая работа не найдена по id:" + id );
+            return null;
         }
 
         return jobHistoryOptional.get();

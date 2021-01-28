@@ -30,7 +30,7 @@ public class PassportServiceImpl implements PassportService {
         Optional<Passport> passportOptional = passportRepository.findById(id);
         
         if (!passportOptional.isPresent()) {
-            throw new RuntimeException("Паспорт не найден по id:" + id );
+            return null;
         }
 
         return passportOptional.get();
@@ -41,7 +41,7 @@ public class PassportServiceImpl implements PassportService {
         Optional<Passport> passportOptional = passportRepository.findByEmployeeId(id);
         
         if (!passportOptional.isPresent()) {
-            throw new RuntimeException("Паспорт не найден по id сотрудника:" + id );
+            return null;
         }
 
         return passportOptional.get();

@@ -32,7 +32,7 @@ public class EducationServiceImpl implements EducationService {
         Optional<Education> educationOptional = educationRepository.findById(id);
         
         if (!educationOptional.isPresent()) {
-            throw new RuntimeException("Образование не найден по id:" + id );
+            return null;
         }
 
         return educationOptional.get();

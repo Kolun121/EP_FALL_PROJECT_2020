@@ -2,7 +2,6 @@
     <div th:with="valid=${!#fields.hasErrors(name)}" 
          th:class="${'form-group row'}">
         <div class="col-md-4">
-
             <label class="control-label" th:text="${label}" th:for="${name}">Label</label>
             <div class="input-group has-error">
                 <th:block th:switch="${type}">
@@ -12,9 +11,7 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-edit"></i></span>
                         </div>
-
                     </th:block>
-
                     <th:block th:case="'number'">
                         <input th:class="${'form-control ' + (valid ? '' : 'is-invalid')}" type="number" th:field="*{__${name}__}" />
                     </th:block>
@@ -41,7 +38,7 @@
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
                         </div>
-                        <span class="help-block">Формат: xxxx xxx xx-xx</span>
+                     
                     </th:block>
 
                     <th:block th:case="'textarea'">

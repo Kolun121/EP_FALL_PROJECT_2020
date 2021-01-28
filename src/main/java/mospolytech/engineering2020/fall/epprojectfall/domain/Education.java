@@ -1,5 +1,6 @@
 package mospolytech.engineering2020.fall.epprojectfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Date;
@@ -28,6 +29,7 @@ public class Education implements Serializable{
     
     private String specialty;
     private String qualification;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date graduationDate;
     
     @JsonIgnore

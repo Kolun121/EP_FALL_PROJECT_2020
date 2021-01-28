@@ -1,10 +1,9 @@
 <!doctype html>
 <html th:fragment="layout (template, page, pageTitle)">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <!--<meta name="_csrf" th:content="${_csrf.token}"/>-->
         <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/image/favicon.png}">
         
         <link th:href="@{/resources/css/footer.css}" rel="stylesheet">
@@ -23,15 +22,13 @@
     <main th:replace="${template}" />   
 
     <footer th:replace="~{admin/fragments/footer :: footer}" />
-
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
     <script th:src="@{/resources/js/admin/_csrf.js}"></script>
         
-    <th:block th:insert="~{admin/fragments/js :: js}"></th:block>
-    
+    <th:block th:insert="~{admin/fragments/js :: js}"></th:block>   
 </body>
     
 </html>

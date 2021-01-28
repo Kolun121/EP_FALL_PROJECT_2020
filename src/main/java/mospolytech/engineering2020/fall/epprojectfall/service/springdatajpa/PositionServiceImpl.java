@@ -46,7 +46,7 @@ public class PositionServiceImpl implements PositionService {
         Optional<Position> positionOptional = positionRepository.findById(id);
         
         if (!positionOptional.isPresent()) {
-            throw new RuntimeException("Должность не найдена по id:" + id );
+            return null;
         }
 
         return positionOptional.get();
