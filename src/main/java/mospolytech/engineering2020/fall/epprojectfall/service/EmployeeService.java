@@ -8,6 +8,6 @@ import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingReques
 public interface EmployeeService extends CrudService<Employee, Long> {
     Page<Employee> getEmployees(PagingRequest pagingRequest);
     void deleteAll(Iterable<Employee> employees);
-    void saveAll(List<Employee> employees);
+    void saveAll(Iterable<Employee> employees);
     List<Employee> findAllByStaffingTableId(Long staffingTableId);
 }

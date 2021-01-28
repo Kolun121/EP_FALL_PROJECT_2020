@@ -1,6 +1,7 @@
 package mospolytech.engineering2020.fall.epprojectfall.controllers.admin;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
@@ -103,6 +104,18 @@ public class StaffingTableController {
     @DeleteMapping("/delete")
     @ResponseBody
     public void deleteStaffingTables(@RequestBody List<StaffingTable> listStaffingTables){
+//        Set<Employee> employees = new HashSet<>();
+//        
+//        for(StaffingTable staffingTable: listStaffingTables){
+//            employees.addAll(employeeService.findAllByStaffingTableId(staffingTable.getId()));
+//        }
+//        
+//        for(Employee employee: employees){
+//            employee.setStaffingTable(null);
+//        }
+//        
+//        System.out.println(employees.size());
+//        employeeService.saveAll(employees);
         staffingTableService.deleteAll(listStaffingTables);
     }
 }

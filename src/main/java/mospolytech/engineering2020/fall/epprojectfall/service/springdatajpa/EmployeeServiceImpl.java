@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
 import mospolytech.engineering2020.fall.epprojectfall.domain.StaffingTable;
 import mospolytech.engineering2020.fall.epprojectfall.repository.EmployeeRepository;
+import mospolytech.engineering2020.fall.epprojectfall.repository.StaffingTableRepository;
 
 import mospolytech.engineering2020.fall.epprojectfall.service.EmployeeService;
 import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Page;
@@ -29,9 +30,11 @@ import org.springframework.util.ObjectUtils;
 public class EmployeeServiceImpl implements EmployeeService {
     private static final Comparator<Employee> EMPTY_COMPARATOR = (e1, e2) -> 0;
     private final EmployeeRepository employeeRepository;
+    private final StaffingTableRepository staffingTableRepository;
     
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, StaffingTableRepository staffingTableRepository) {
         this.employeeRepository = employeeRepository;
+        this.staffingTableRepository = staffingTableRepository;
     }
     
     @Override
@@ -59,7 +62,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee save(Employee object) {
-        return employeeRepository.save(object);
+ 
+        Employee savedEmployee =  employeeRepository.save(object);
+        
+        if(object.getStaffingTable() != null){
+            StaffingTable staffingTable = staffingTableRepository.findById(object.getStaffingTable().getId()).get();
+            staffingTable.setEmployeesNumber(staffingTable.getEmployees().size());
+            staffingTableRepository.save(staffingTable);
+        }
+
+        return savedEmployee;
     }
 
     @Override
@@ -78,7 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     @Override
-    public void saveAll(List<Employee> employees) {
+    public void saveAll(Iterable<Employee> employees) {
         employeeRepository.saveAll(employees);
     }
 

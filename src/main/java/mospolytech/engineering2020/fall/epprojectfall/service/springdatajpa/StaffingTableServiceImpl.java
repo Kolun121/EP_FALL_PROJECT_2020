@@ -17,7 +17,9 @@ import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Page;
 import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Order;
 import mospolytech.engineering2020.fall.epprojectfall.domain.paging.Column;
 import mospolytech.engineering2020.fall.epprojectfall.comparator.StaffingTableComparators;
+import mospolytech.engineering2020.fall.epprojectfall.domain.Employee;
 import mospolytech.engineering2020.fall.epprojectfall.domain.paging.PagingRequest;
+import mospolytech.engineering2020.fall.epprojectfall.repository.EmployeeRepository;
 import org.springframework.util.ObjectUtils;
 
 
@@ -25,12 +27,13 @@ import org.springframework.util.ObjectUtils;
 public class StaffingTableServiceImpl implements StaffingTableService {
     private static final Comparator<StaffingTable> EMPTY_COMPARATOR = (e1, e2) -> 0;
     private final StaffingTableRepository staffingTableRepository;
+    private final EmployeeRepository employeeRepository;
     
-    public StaffingTableServiceImpl(StaffingTableRepository staffingTableRepository) {
+    public StaffingTableServiceImpl(StaffingTableRepository staffingTableRepository, EmployeeRepository employeeRepository) {
         this.staffingTableRepository = staffingTableRepository;
+        this.employeeRepository = employeeRepository;
     }
 
-    
     @Override
     public Set<StaffingTable> findAll() {
         Set<StaffingTable> staffingTables = new HashSet<>();
@@ -43,7 +46,7 @@ public class StaffingTableServiceImpl implements StaffingTableService {
         Optional<StaffingTable> staffingTableOptional = staffingTableRepository.findById(id);
         
         if (!staffingTableOptional.isPresent()) {
-            throw new RuntimeException("Запись не найдена по id:" + id );
+            return null;
         }
 
         return staffingTableOptional.get();
@@ -57,16 +60,43 @@ public class StaffingTableServiceImpl implements StaffingTableService {
 
     @Override
     public void delete(StaffingTable object) {
+        Set<Employee> employees = new HashSet<>();
+        employees.addAll(employeeRepository.findAllByStaffingTableId(object.getId()));
+        
+        for(Employee employee: employees){
+            employee.setStaffingTable(null);
+        }
+        employeeRepository.saveAll(employees);
+        
         staffingTableRepository.delete(object);
     }
 
     @Override
     public void deleteById(Long id) {
+        Set<Employee> employees = new HashSet<>();
+        employees.addAll(employeeRepository.findAllByStaffingTableId(id));
+        
+        for(Employee employee: employees){
+            employee.setStaffingTable(null);
+        }
+        employeeRepository.saveAll(employees);
+        
         staffingTableRepository.deleteById(id);
     }
     
     @Override
     public void deleteAll(Iterable<StaffingTable> staffingTables) {
+        Set<Employee> employees = new HashSet<>();
+        
+        for(StaffingTable staffingTable: staffingTables){
+            employees.addAll(employeeRepository.findAllByStaffingTableId(staffingTable.getId()));
+        }
+        
+        for(Employee employee: employees){
+            employee.setStaffingTable(null);
+        }
+        
+        employeeRepository.saveAll(employees);
         staffingTableRepository.deleteAll(staffingTables);
     }
     

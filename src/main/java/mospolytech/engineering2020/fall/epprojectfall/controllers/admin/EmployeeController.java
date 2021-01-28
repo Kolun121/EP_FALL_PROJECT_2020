@@ -84,10 +84,10 @@ public class EmployeeController {
             
             StaffingTable staffingTable = staffingTableService.findById(employee.getStaffingTable().getId());
 
-            if(!staffingTable.getEmployees().contains(employee)) {
-                staffingTable.getEmployees().add(employee);
-
-            }
+//            if(!staffingTable.getEmployees().contains(employee)) {
+//                staffingTable.getEmployees().add(employee);
+//
+//            }
             
             employeeService.save(employee);
             return "redirect:/admin/employees/" + id;
